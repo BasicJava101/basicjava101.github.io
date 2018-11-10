@@ -26,7 +26,7 @@
         <div id="main">
             <div class="inner">
               <header id="header">
-                <a href="http://localhost:9000/" class="logo">
+                <a href="http://localhost:4000/" class="logo">
                   <img src="/assets/images/conflogo.png">
                   <strong>Phoenix Basics</strong> 
                 </a>
@@ -46,7 +46,7 @@
 
 <p>Run this command to get the seed files:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git merge seeds
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git merge origin/seeds
 </code></pre></div></div>
 
 <p>Add this line to <code class="highlighter-rouge">priv/repo/seeds.exs</code> run the seed file:</p>
@@ -69,11 +69,17 @@
 
 <p>We’re going to load all the talks through the slots. Go to the function <code class="highlighter-rouge">list_schedule_slots</code> (maybe line 126). We want to say load all the event and talks. For all the talks, list the slot, speakers, categories, audience, and location.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Slot
-|&gt; preload([:event, talks: [:slot, :speakers, :categories, :audience, :location]])
-|&gt; order_by(asc: :start_time)
-|&gt; Repo.all()
-|&gt; Enum.group_by(&amp;(Timex.beginning_of_day(&amp;1.start_time)))
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def list_schedule_slots do
+  Slot
+  |&gt; preload([:event, talks: [:slot, :speakers, :categories, :audience, :location]])
+  |&gt; order_by(asc: :start_time)
+  |&gt; Repo.all()
+  |&gt; Enum.group_by(&amp;get_day/1)
+end
+
+defp get_day(slot) do
+  Timex.beginning_of_day(slot.start_time)
+end
 </code></pre></div></div>
 
 <p>Now, we need to add a shared view to help with formatting the layout. Create a filed called <code class="highlighter-rouge">lib/fawkes_web/views/shared_view.ex</code>. Add this code:</p>
@@ -390,11 +396,11 @@ It should work.</p>
       </div>
 
       <!-- Scripts -->
-  <script src="http://localhost:9000/assets/js/jquery.min.js"></script>
-  <script src="http://localhost:9000/assets/js/skel.min.js"></script>
-  <script src="http://localhost:9000/assets/js/util.js"></script>
-  <!--[if lte IE 8]><script src="http://localhost:9000/assets/js/ie/respond.min.js"></script><![endif]-->
-  <script src="http://localhost:9000/assets/js/main.js"></script>
+  <script src="http://localhost:4000/assets/js/jquery.min.js"></script>
+  <script src="http://localhost:4000/assets/js/skel.min.js"></script>
+  <script src="http://localhost:4000/assets/js/util.js"></script>
+  <!--[if lte IE 8]><script src="http://localhost:4000/assets/js/ie/respond.min.js"></script><![endif]-->
+  <script src="http://localhost:4000/assets/js/main.js"></script>
 
 
 </body>
