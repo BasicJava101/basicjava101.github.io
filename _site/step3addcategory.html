@@ -1,0 +1,337 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+  <title>Phoenix Basics</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <!--[if lte IE 8]><script src="/assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <!--[if lte IE 9]><link rel="stylesheet" href="/assets/css/ie9.css" /><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" href="/assets/css/ie8.css" /><![endif]-->
+</head>
+
+
+<body>
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner">
+              <header id="header">
+                <a href="http://localhost:9000/" class="logo">
+                  <img src="/assets/images/conflogo.png">
+                  <strong>Phoenix Basics</strong> 
+                </a>
+              </header>
+
+                <!-- Content -->
+                <section>
+                	<header class="main">
+                		<h1>Add a feature</h1>
+                	</header>
+
+                  
+
+                <p>(Use <code class="highlighter-rouge">git checkout 3.add_a_feature</code> to catch up with the class)</p>
+
+<p>Now we know how to add a route, let’s add a new feature. We’re going to add categories to tag what type of talk it is.</p>
+
+<h3 id="add-a-route">Add a route</h3>
+
+<p>Open <code class="highlighter-rouge">lib/fawkes_web/router.ex</code>. After the <code class="highlighter-rouge">get "/", PageController, :index</code> line, add the following code:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> get "/categories", CategoryController, :index
+</code></pre></div></div>
+
+<h3 id="add-a-controller">Add a Controller</h3>
+
+<p>Now let’s add a controller to handle the request. Create a new file called <code class="highlighter-rouge">lib/fawkes_web/controllers/category_controller.ex</code>. Add the following code to the file:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>defmodule FawkesWeb.CategoryController do
+  use FawkesWeb, :controller
+  alias Fawkes.Schedule
+
+  def index(conn, _params) do
+    categories = Schedule.all_category()
+    render(conn, "index.html", categories: categories)
+  end
+
+end
+
+</code></pre></div></div>
+
+<h3 id="add-a-context">Add a Context</h3>
+
+<p>Create a context in a file called <code class="highlighter-rouge">lib/fawkes/schedule/schedule.ex</code>. Add the following code to the file:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>defmodule Fawkes.Schedule do
+  alias Fawkes.Repo
+  alias Fawkes.Schedule.Category
+
+  def all_category do
+    Repo.all(Category)
+  end
+
+end
+</code></pre></div></div>
+
+<p>This will call the repository to get all the categories. But right now we don’t have a category, so let’s create one.</p>
+
+<h3 id="add-a-model">Add a model</h3>
+
+<p>Let’s use Phoenix to generate a model and migration for Category.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix phx.gen.schema Schedule.Category categories slug:string name:string icon_url:string
+
+</code></pre></div></div>
+
+<p>DON’T run the migration yet.</p>
+
+<p>Running this command will create two files, a migration file (<code class="highlighter-rouge">priv/repo/migrations/20180803152910_create_categories.exs</code>) and a model file (<code class="highlighter-rouge">lib/fawkes/schedule/category.ex</code>). The migration file uses a timestamp as the first part of it’s filename to know which file to migrate first.</p>
+
+<p>Our project uses Ecto to talk to the database. <a href="https://hexdocs.pm/ecto/Ecto.html">Ecto</a> is a library that handles data validation and persistence. It consist of 4 parts:</p>
+<ul>
+  <li>Ecto.Repo - Repositories are wrappers around our data store (PostgreSQL in this case). Via the repository, we can create, update, destroy and query existing entries. A repository needs an adapter and credentials to communicate to the database</li>
+  <li>Ecto.Schema - Schemas are used to map tables into Elixir structs. They define all the fields and relationships - you can think of them as sort of the “Model” in an MVC pattern.</li>
+  <li>Ecto.Changeset - Changesets provide a way to filter and cast external parameters, as well as a mechanism to track and validate changes before they are applied to your data</li>
+  <li>Ecto.Query - Written in Elixir syntax, queries are used to retrieve information from a given repository. Queries in Ecto are secure, avoiding common problems like SQL Injection, while still being composable, allowing developers to build queries piece by piece instead of all at once</li>
+</ul>
+
+<p>We will learn more about as we continue to build this application.</p>
+
+<p>Let’s add a unique index for the category name to our migration. Inside the <code class="highlighter-rouge">change</code> block, after the <code class="highlighter-rouge">create</code> block, add the following:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>create unique_index(:categories, [:slug])
+</code></pre></div></div>
+
+<p>By default, Ecto will make every field required. But we don’t want the icon_url to be required because not all of them have an icon associated with it. Let’s open up <code class="highlighter-rouge">lib/fawkes/schedule/category.ex</code> and remove <code class="highlighter-rouge">icon_url</code> from the changeset validate_required function (maybe line 18?). So it would only require name and slug.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    |&gt; validate_required([:slug, :name])
+</code></pre></div></div>
+
+<p>Run this command to create the table in the database:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix ecto.migrate
+</code></pre></div></div>
+
+<h3 id="add-a-view">Add a view</h3>
+
+<p>Now that we have a category, let’s try to show it. First, we need to create a view to render the templates. Create a file called <code class="highlighter-rouge">lib/fawkes_web/views/category_view.ex</code>. Add the following code to the view:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>defmodule FawkesWeb.CategoryView do
+  use FawkesWeb, :view
+
+end
+</code></pre></div></div>
+
+<p>Create a new folder called <code class="highlighter-rouge">category</code> in <code class="highlighter-rouge">lib/fawkes_web/templates</code>. Add a new file called <code class="highlighter-rouge">lib/fawkes_web/templates/category/index.html.eex</code>. Add the following code to display the category.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;div class="container"&gt;
+  &lt;h2&gt;Categories&lt;/h2&gt;
+  &lt;a href="/categories/new"&gt;New Category&lt;/a&gt;
+
+  &lt;table class="table"&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;Name&lt;/th&gt;
+        &lt;th&gt;Slug&lt;/th&gt;
+        &lt;th&gt;&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+    &lt;%= for category &lt;- @categories do %&gt;
+        &lt;tr&gt;
+          &lt;td&gt;&lt;%= category.name %&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;%= category.slug %&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a href="/categories/&lt;%= category.id %&gt;"&gt;Show&lt;/a&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;% end %&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;
+</code></pre></div></div>
+
+<p>Now go to <a href="http://localhost:4000/categories">http://localhost:4000/categories</a></p>
+
+<p>Woohoo! We have a page for the category. Since we don’t have any category, our page is empty. Let’s add a page to create a category.</p>
+
+<h2 id="add-a-category-form">Add a category form</h2>
+
+<p>(Use <code class="highlighter-rouge">git checkout 3c.add_a_category_form</code> to catch up with the class)</p>
+
+<p>In <code class="highlighter-rouge">lib/fawkes_web/router.ex</code>, add a new line on line 21, before the category index. Add a new path to get the form:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>get "/categories/new", CategoryController, :new
+</code></pre></div></div>
+
+<p>Open <code class="highlighter-rouge">lib/fawkes_web/controllers/category_controller.ex</code>, add a new function to show a form for a new category:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def new(conn, _params) do
+  render(conn, "new.html", changeset: Schedule.category_changeset())
+end
+</code></pre></div></div>
+
+<p>Now open <code class="highlighter-rouge">lib/fawkes/schedule/schedule.ex</code>. Add this method to get a new changeset.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def category_changeset(changeset \\ %Category{}) do
+  Category.changeset(changeset, %{})
+end
+</code></pre></div></div>
+
+<p>Because we already have a view, we only need to create a template to show the form. Create a new file called  <code class="highlighter-rouge">lib/fawkes_web/templates/category/new.html.eex</code>. Add the following code to the file:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;div class="container"&gt;
+  &lt;h2&gt;New Category&lt;/h2&gt;
+  &lt;%= form_for @changeset, category_path(@conn, :create), fn f -&gt; %&gt;
+    &lt;%= if @changeset.action do %&gt;
+      &lt;div class="alert alert-danger"&gt;
+        &lt;p&gt;Oops, something went wrong! Please check the errors below.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;% end %&gt;
+
+    &lt;div class="form-group"&gt;
+      &lt;%= label f, :name, class: "control-label" %&gt;
+      &lt;%= text_input f, :name, class: "form-control" %&gt;
+      &lt;%= error_tag f, :name %&gt;
+    &lt;/div&gt;
+
+    &lt;div class="form-group"&gt;
+      &lt;%= label f, :slug, class: "control-label" %&gt;
+      &lt;%= text_input f, :slug, class: "form-control" %&gt;
+      &lt;%= error_tag f, :slug %&gt;
+    &lt;/div&gt;
+
+    &lt;div class="form-group"&gt;
+      &lt;%= submit "Submit", class: "btn btn-primary" %&gt;
+    &lt;/div&gt;
+  &lt;% end %&gt;
+&lt;/div&gt;
+</code></pre></div></div>
+
+<p>Ok, now go to <a href="http://localhost:4000/categories/new">http://localhost:4000/categories/new</a>. Notice it gives you an error because we didn’t define the path to post the data.</p>
+
+<h2 id="create-a-category">Create a category</h2>
+
+<p>(Use <code class="highlighter-rouge">git checkout 3d.create_a_category</code> to catch up with the class)</p>
+
+<p>In your router (<code class="highlighter-rouge">lib/fawkes_web/router.ex</code>), add a new path post call to create the category. Add this after the <code class="highlighter-rouge">get "/categories/new", CategoryController, :new</code></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>post "/categories", CategoryController, :create
+</code></pre></div></div>
+
+<p>In your <code class="highlighter-rouge">CategoryController</code> add this function to call the schedule context to save it to the database.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def create(conn, %{"category" =&gt; params}) do
+  case Schedule.create_category(params) do
+    {:ok, _category} -&gt;
+      conn
+      |&gt; put_flash(:info, "Category created successfully.")
+      |&gt; redirect(to: category_path(conn, :index))
+    {:error, %Ecto.Changeset{} = changeset} -&gt;
+      render(conn, "new.html", changeset: changeset)
+  end
+end
+</code></pre></div></div>
+
+<p>Now let’s insert it into the database. Open <code class="highlighter-rouge">lib/fawkes/schedule/schedule.ex</code> and add this code:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def create_category(attrs \\ %{}) do
+  %Category{}
+  |&gt; Category.changeset(attrs)
+  |&gt; Repo.insert()
+end
+</code></pre></div></div>
+
+<p>Go to <a href="http://localhost:4000/categories/new">http://localhost:4000/categories/new</a>, add a new category and hit submit. Congrats. It is saving in the database.</p>
+
+<h2 id="exercise-show">Exercise: Show</h2>
+
+<p>(Use <code class="highlighter-rouge">git checkout 3e.show_category</code> to catch up with the class)</p>
+
+<p>Exercise #1: Implement the show category</p>
+
+<p>When a user sends GET request to <code class="highlighter-rouge">http://localhost:4000/categories/1</code>, the application will displays the category’s name, slug, icon_url.
+Hints:</p>
+<ol>
+  <li><code class="highlighter-rouge">get "/categories/:id"</code> will store the value after categories as an id</li>
+  <li>To get a value out of a map you give it the key <code class="highlighter-rouge">params["id"]</code> or you can pattern match the map to <code class="highlighter-rouge">%{"id" =&gt; id}</code></li>
+  <li>To get a category from a repo: <code class="highlighter-rouge">Repo.get!(Category, id)</code></li>
+</ol>
+
+<h3 id="resources">Resources:</h3>
+<ul>
+  <li><a href="https://hexdocs.pm/ecto/Ecto.Repo.html">https://hexdocs.pm/ecto/Ecto.Repo.html</a></li>
+  <li><a href="https://hexdocs.pm/phoenix/Phoenix.Controller.html">https://hexdocs.pm/phoenix/Phoenix.Controller.html</a></li>
+</ul>
+
+<h2 id="exercise-2-delete">Exercise #2: Delete</h2>
+<p>(Use <code class="highlighter-rouge">git checkout 3f.delete_category</code> to catch up with the class)</p>
+
+<p>Implement the delete feature. When a user sends DELETE request to <code class="highlighter-rouge">http://localhost:4000/categories/1</code>, the application will delete the category with ID 1 and redirect the user to <code class="highlighter-rouge">/categories</code>.</p>
+
+<p>Hint: To delete a category from a repo <code class="highlighter-rouge">Repo.delete(category)</code>. To redirect to category index <code class="highlighter-rouge">redirect(conn, to: category_path(conn, :index))</code></p>
+
+<p>Add this next to the show category link in <code class="highlighter-rouge">lib/fawkes_web/templates/category/index.html.eex</code> to test out the functionality.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;%= link "Delete", to: category_path(@conn, :delete, category), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %&gt;
+</code></pre></div></div>
+
+
+              </div>
+          </div>
+
+          <!-- Sidebar -->
+  <div id="sidebar">
+    <div class="inner">
+      <!-- Menu -->
+        <nav id="menu">
+          <header class="major">
+            <h2>Menu</h2>
+          </header>
+          <ul>
+            <li><a href="index.html">0. Getting started</a></li>
+            <li><a href="step1newapp.html">1. Create new project</a></li>
+            <li><a href="step2addpage.html">2. Add a new page</a></li>
+            <li><a href="step3addcategory.html">3. Add a feature</a></li>
+            <li><a href="step3addcategoryanswer.html">3a. Add a feature answer</a></li>
+            <li><a href="step4phoenixgenerator.html">4. Phoenix Generator</a></li>
+            <li><a href="step5seed.html">5. Populate the database</a></li>
+            <li><a href="step5seedanswer.html">5. Populate the database answer</a></li>
+            <li><a href="step6usersignin.html">6. Add Member Signup</a></li>
+            <li><a href="step7userprofiles.html">7. Add User Profiles</a></li>
+            <li><a href="step8agenda.html">8. Add agenda</a></li>
+            <li><a href="step9deploy.html">9. Deploy</a></li>
+            <li><a href="step10bonus.html">10. Bonus exercise</a></li>
+          </ul>
+        </nav>
+
+      <!-- Footer -->
+        <footer id="footer">
+          <p class="copyright">&copy; Phoenix Basics. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>. Jekyll integration: <a href="https://andrewbanchi.ch">Andrew Banchich</a>.</p>
+        </footer>
+
+    </div>
+  </div>
+
+
+      </div>
+
+      <!-- Scripts -->
+  <script src="http://localhost:9000/assets/js/jquery.min.js"></script>
+  <script src="http://localhost:9000/assets/js/skel.min.js"></script>
+  <script src="http://localhost:9000/assets/js/util.js"></script>
+  <!--[if lte IE 8]><script src="http://localhost:9000/assets/js/ie/respond.min.js"></script><![endif]-->
+  <script src="http://localhost:9000/assets/js/main.js"></script>
+
+
+</body>
+
+</html>

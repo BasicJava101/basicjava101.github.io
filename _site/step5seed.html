@@ -1,0 +1,402 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+  <title>Phoenix Basics</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <!--[if lte IE 8]><script src="/assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <!--[if lte IE 9]><link rel="stylesheet" href="/assets/css/ie9.css" /><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" href="/assets/css/ie8.css" /><![endif]-->
+</head>
+
+
+<body>
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner">
+              <header id="header">
+                <a href="http://localhost:9000/" class="logo">
+                  <img src="/assets/images/conflogo.png">
+                  <strong>Phoenix Basics</strong> 
+                </a>
+              </header>
+
+                <!-- Content -->
+                <section>
+                	<header class="main">
+                		<h1>Populate the database</h1>
+                	</header>
+
+                  
+
+                <p>(Use git checkout <code class="highlighter-rouge">5.seed</code> to catch up with the class)</p>
+
+<p>Now that we have our modules, let’s connect them all together?</p>
+
+<p>Run this command to get the seed files:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git merge seeds
+</code></pre></div></div>
+
+<p>Add this line to <code class="highlighter-rouge">priv/repo/seeds.exs</code> run the seed file:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Fawkes.Schedule.Seed.perform()
+</code></pre></div></div>
+
+<p>Let’s seed our database:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix run priv/repo/seeds.exs
+</code></pre></div></div>
+
+<h3 id="querying-for-data">Querying for data</h3>
+<p>(Use git checkout <code class="highlighter-rouge">5a.querydata</code> to catch up with the class)</p>
+
+<p>When we load the schedule, we want to load the talk, slot, location, and category. Let’s open <code class="highlighter-rouge">lib/fawkes/schedule/schedule.ex</code>. First thing we want to do add the ability to query. So import in <code class="highlighter-rouge">Ecto.Query</code> on line 4.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import Ecto.Query
+</code></pre></div></div>
+
+<p>We’re going to load all the talks through the slots. Go to the function <code class="highlighter-rouge">list_schedule_slots</code> (maybe line 126). We want to say load all the event and talks. For all the talks, list the slot, speakers, categories, audience, and location.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Slot
+|&gt; preload([:event, talks: [:slot, :speakers, :categories, :audience, :location]])
+|&gt; order_by(asc: :start_time)
+|&gt; Repo.all()
+|&gt; Enum.group_by(&amp;(Timex.beginning_of_day(&amp;1.start_time)))
+</code></pre></div></div>
+
+<p>Now, we need to add a shared view to help with formatting the layout. Create a filed called <code class="highlighter-rouge">lib/fawkes_web/views/shared_view.ex</code>. Add this code:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>defmodule FawkesWeb.SharedView do
+  use FawkesWeb, :view
+
+  def full_name(people) when is_list(people) do
+    people
+    |&gt; Enum.map(&amp;full_name/1)
+    |&gt; Enum.join(" &amp;&amp; ")
+  end
+
+  def full_name(person) do
+    person.first &lt;&gt; " " &lt;&gt; person.last
+  end
+end
+</code></pre></div></div>
+
+<p>Finally, let’s update our layout. Open <code class="highlighter-rouge">lib/fawkes_web/templates/slot/index.html.eex</code>, and replace the code with this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;div class="talk-index"&gt;
+  &lt;div class="section-white"&gt;
+    &lt;div class="container"&gt;
+      &lt;div class="d-flex justify-content-center align-items-center dates"&gt;
+        &lt;i class="fas fa-arrow-left"&gt;&lt;/i&gt;
+        &lt;%= for date &lt;- conference_dates() do %&gt;
+          &lt;div class="card"&gt;
+            &lt;div class="card-body"&gt;
+              &lt;a href="/schedule_slots?date=&lt;%= Timex.format!(date, "%Y-%m-%d", :strftime)%&gt;"&gt;
+                &lt;div class="dates__name smalltext"&gt;&lt;%= Timex.format!(date, "%a", :strftime) %&gt;&lt;/div&gt;
+                &lt;div class="dates__number"&gt;&lt;%= Timex.format!(date, "%e", :strftime) %&gt;&lt;/div&gt;
+              &lt;/a&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;% end %&gt;
+        &lt;i class="fas fa-arrow-right"&gt;&lt;/i&gt;
+      &lt;/div&gt;
+      &lt;div class="d-flex justify-content-center talk-index__tab"&gt;
+        &lt;a href="/schedule_slots" class="talk-tab__link talk-tab__link-active"&gt;&lt;h4 class="subheader"&gt;Full Schedule&lt;/h4&gt;&lt;/a&gt;
+        &lt;%= if @conn.assigns[:current_user] do %&gt;
+          &lt;a href="/agenda" class="talk-tab__link"&gt;&lt;h4 class="subheader"&gt;My Agenda&lt;/h4&gt;&lt;/a&gt;
+        &lt;% end %&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="container schedule"&gt;
+    &lt;p class="alert alert-info" role="alert"&gt;&lt;/p&gt;
+    &lt;p class="alert alert-danger" role="alert"&gt;&lt;/p&gt;
+    &lt;%= for {date, slots} &lt;- @schedule_slots do %&gt;
+      &lt;h2 class="schedule__date"&gt;&lt;%= Timex.format!(date, "%A  %m/%d/%y", :strftime)%&gt;&lt;/h2&gt;
+      &lt;%= for slot &lt;- slots do %&gt;
+        &lt;div class="card"&gt;
+          &lt;div class="card-header"&gt;
+            &lt;h4 class="subheader schedule__time"&gt;
+              &lt;%= Timex.format!(slot.start_time, "%-I:%M %p", :strftime)%&gt; - &lt;%= Timex.format!(slot.end_time, "%-I:%M %p", :strftime) %&gt;
+            &lt;/h4&gt;
+          &lt;/div&gt;
+          &lt;div class="card-body"&gt;
+            &lt;%= if slot.event do %&gt;
+              &lt;h3 class="gray"&gt;&lt;%= slot.event.name %&gt;&lt;/h3&gt;
+            &lt;% else %&gt;
+              &lt;%= for talk &lt;- slot.talks do %&gt;
+                &lt;div class="schedule__talk"&gt;
+                  &lt;div class="float-right schedule__talk-link"&gt;
+                    &lt;i class="fas fa-angle-right"&gt;&lt;/i&gt;
+                  &lt;/div&gt;
+                  &lt;a href="/talks/&lt;%= talk.id %&gt;"&gt;
+                    &lt;h3 class="schedule__talk-title"&gt;
+                      &lt;%= talk.title %&gt;
+                    &lt;/h3&gt;
+                  &lt;/a&gt;
+
+                  &lt;div class="schedule__details"&gt;
+                    &lt;%= FawkesWeb.SharedView.full_name(talk.speakers) %&gt; &amp;nbsp; | &amp;nbsp; &lt;%= talk.location.name %&gt;
+                  &lt;/div&gt;
+                  &lt;p class="icons"&gt;
+                    &lt;button class="btn talk__audience"&gt;&lt;%= talk.audience.name %&gt;&lt;/button&gt;
+                    &lt;%= for category &lt;- talk.categories do %&gt;
+                        &lt;%= if category.icon_url do %&gt;
+                          &lt;img src="&lt;%= category.icon_url %&gt;" alt="&lt;%= category.name %&gt;"&gt;
+                        &lt;% else %&gt;
+                          &lt;button class="btn talk__category"&gt;
+                            &lt;%= category.name %&gt;
+                          &lt;/button&gt;
+                        &lt;% end %&gt;
+                    &lt;% end %&gt;
+                  &lt;/p&gt;
+                  &lt;%= if @conn.assigns[:current_user] do %&gt;
+                    &lt;div class="schedule__action" data-talk-id="&lt;%= talk.id %&gt;"&gt;
+                      &lt;div class="add-to-schedule"&gt;
+                        &lt;i class="far fa-calendar-check"&gt;&lt;/i&gt;
+                        ADD TO AGENDA
+                      &lt;/div&gt;
+                      &lt;div class="remove-from-schedule" style="display: none"&gt;
+                        &lt;i class="far fa-trash-alt"&gt;&lt;/i&gt;
+                        REMOVE FROM AGENDA
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  &lt;% end %&gt;
+                &lt;/div&gt;
+              &lt;% end %&gt; &lt;!-- end for loop --&gt;
+            &lt;% end %&gt; &lt;!-- end if statement --&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+      &lt;% end %&gt;
+    &lt;% end %&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;%= if @conn.assigns[:current_user] do %&gt;
+  &lt;script&gt;
+    $(document).ready(function() {
+      $('.add-to-schedule').click(function(event) {
+        var parent = $(this).parent();
+        var talkId = parent.data('talk-id');
+        var data = { user_id: &lt;%= @conn.assigns[:current_user].id %&gt;, talk_id: talkId}
+
+        $.post( '/api/users_talks', data)
+            .done(function( data ) {
+              console.log(data.data.id);
+              console.log(parent.find('.remove-from-schedule'));
+              parent.find('.add-to-schedule').hide();
+              parent.find('.remove-from-schedule').data('user-talk-id', data.data.id).show();
+            });
+        })
+
+      $('.remove-from-schedule').click(function(event) {
+        var parent = $(this).parent();
+        var id = $(this).data('user-talk-id');
+
+        $.ajax({
+            url: '/api/users_talks/' + id,
+            type: 'DELETE',
+            success: function(result) {
+              parent.find('.add-to-schedule').show();
+              parent.find('.remove-from-schedule').hide();
+            }
+        });
+      });
+
+    });
+  &lt;/script&gt;
+&lt;% end %&gt;
+
+</code></pre></div></div>
+
+<p>Restart your server. Press <code class="highlighter-rouge">Cmd</code> + <code class="highlighter-rouge">c</code> to quit. Then run:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix phx.server
+</code></pre></div></div>
+
+<h2 id="exercise-1-load-speakers">Exercise #1: Load speakers</h2>
+<p>(Use git checkout <code class="highlighter-rouge">5b.load_speaker</code> to catch up with the class)</p>
+
+<ol>
+  <li>In the <code class="highlighter-rouge">lib/fawkes/schedule/schedule.ex</code>, find the function <code class="highlighter-rouge">list_profiles</code>. Change it to <code class="highlighter-rouge">list_speakers</code>.</li>
+  <li>It should preload <code class="highlighter-rouge">talk</code></li>
+  <li>
+    <p>Open <code class="highlighter-rouge">lib/fawkes_web/controllers/speaker_controllers.ex</code>, update the <code class="highlighter-rouge">index</code> function to reference speakers instead of profile. The code should look like this:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     def index(conn, _params) do
+       speakers = Schedule.list_speakers()
+       render(conn, "index.html", speakers: speakers)
+     end
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Let’s update the layout. Open <code class="highlighter-rouge">lib/fawkes_web/templates/speaker/index.html.eex</code></p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   &lt;div class="container speaker-index"&gt;
+     &lt;h4 class="subheader"&gt;Speakers&lt;/h4&gt;
+     &lt;div class="row attendee"&gt;
+       &lt;%= for speaker &lt;- @speakers do %&gt;
+           &lt;div class="card col-xs-4"&gt;
+             &lt;div class="card-body "&gt;
+               &lt;img src="&lt;%= speaker.image_url %&gt;" class="rounded-circle"&gt;
+               &lt;h4&gt;&lt;%= link FawkesWeb.SharedView.full_name(speaker), to: speaker_path(@conn, :show, speaker) %&gt;&lt;/h4&gt;
+               &lt;p&gt;&lt;%= link speaker.talk.title, to: "/talks/#{speaker.talk.id}" %&gt;&lt;/p&gt;
+             &lt;/div&gt;
+           &lt;/div&gt;
+       &lt;% end %&gt;
+     &lt;/div&gt;
+   &lt;/div&gt;
+</code></pre></div>    </div>
+  </li>
+  <li>Go to <a href="http://localhost:4000/speakers">http://localhost:4000/speakers</a>, make sure the speaker loads</li>
+</ol>
+
+<h2 id="exercise-2-show-talk">Exercise #2: Show talk</h2>
+<p>(Use git checkout <code class="highlighter-rouge">5c.show_talk</code> to catch up with the class)</p>
+
+<ol>
+  <li>In <code class="highlighter-rouge">lib/fawkes/schedule/schedule.ex</code>, find the function <code class="highlighter-rouge">get_talk</code>. Preload slot, speakers, categories, audience, location</li>
+  <li>Open <code class="highlighter-rouge">lib/fawkes_web/templates/talk/show.html.eex</code>. Replace the content with this HTML:</li>
+</ol>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;div class="container talk"&gt;
+  &lt;div class="card section"&gt;
+    &lt;p class="subtext"&gt;&lt;%= Timex.format!(@talk.slot.start_time, "%-I:%M %p", :strftime)%&gt; - &lt;%= Timex.format!(@talk.slot.end_time, "%-I:%M %p", :strftime) %&gt;&lt;/p&gt;
+    &lt;h2&gt;&lt;%= @talk.title %&gt;&lt;/h2&gt;
+    &lt;p class="smalltext"&gt;&lt;strong&gt;Location&lt;/strong&gt;: &lt;%= @talk.location.name %&gt;&lt;/p&gt;
+    &lt;p class="icons"&gt;
+      &lt;button class="btn talk__audience"&gt;&lt;%= @talk.audience.name %&gt;&lt;/button&gt;
+      &lt;%= for category &lt;- @talk.categories do %&gt;
+        &lt;%= if category.icon_url do %&gt;
+          &lt;img src="&lt;%= category.icon_url %&gt;"&gt;
+        &lt;% else %&gt;
+        &lt;button class="btn talk__category"&gt;
+          &lt;%= category.name %&gt;
+        &lt;/button&gt;
+        &lt;% end %&gt;
+
+      &lt;% end %&gt;
+    &lt;/p&gt;
+    &lt;div class="add-to-schedule action"&gt;
+      &lt;i class="far fa-calendar-check"&gt;&lt;/i&gt;
+      ADD TO AGENDA
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;hr/&gt;
+  &lt;h4 class="subheader"&gt;Speakers/Trainers&lt;/h4&gt;
+  &lt;%= for speaker &lt;- @talk.speakers do %&gt;
+    &lt;div class="card speaker"&gt;
+      &lt;div class="row card-body"&gt;
+        &lt;div class="col-sm-3"&gt;
+          &lt;img src="&lt;%= speaker.image_url %&gt;" class="rounded-circle"&gt;
+        &lt;/div&gt;
+        &lt;div class="col-sm-7 speaker__info"&gt;
+          &lt;a href="/speakers/&lt;%= speaker.id %&gt;"&lt;h4&gt;&lt;%= FawkesWeb.SharedView.full_name(speaker) %&gt;&lt;/h4&gt;&lt;/a&gt;
+          &lt;div class="speaker__handle"&gt;
+            &lt;i class="fab fa-github"&gt;&lt;/i&gt; @&lt;%= speaker.github %&gt;
+          &lt;/div&gt;
+          &lt;div class="speaker__handle"&gt;
+            &lt;i class="fab fa-twitter"&gt;&lt;/i&gt; @&lt;%= speaker.twitter %&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="col-sm-1 speaker__link"&gt;
+          &lt;a href="/speakers/&lt;%= speaker.id%&gt;"&gt;&lt;i class="fas fa-chevron-right"&gt;&lt;/i&gt;&lt;/a&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;% end %&gt;
+  &lt;hr /&gt;
+  &lt;h4 class="subheader"&gt;About the event&lt;/h4&gt;
+  &lt;p&gt;&lt;%= raw(@talk.description) %&gt;&lt;/p&gt;
+
+  &lt;hr /&gt;
+  &lt;h4 class="subheader"&gt;Checked in attendees&lt;/h4&gt;
+  &lt;div class="row attendee"&gt;
+    &lt;%= for _ &lt;- (1..10) do %&gt;
+      &lt;div class="card col-sm-3"&gt;
+        &lt;div class="card-body"&gt;
+          &lt;img src="https://lh3.googleusercontent.com/-fEyw5rjNaN0/VIcChZfCYDI/AAAAAAAADfA/OW_u5voliss/w426-h351/good-job-job-lucky-star-konata-izumi-good-anime-otakus-1375040667.jpg" class="rounded-circle"&gt;
+          &lt;i class="fas fa-check-circle attendee__check"&gt;&lt;/i&gt;
+          &lt;h4&gt;Name name&lt;/h4&gt;
+          &lt;div class="speaker__handle"&gt;
+            &lt;i class="fab fa-github"&gt;&lt;/i&gt; @TODO-GIthubhandle
+          &lt;/div&gt;
+          &lt;div class="speaker__handle"&gt;
+            &lt;i class="fab fa-twitter"&gt;&lt;/i&gt; @TODO-twitterhandle
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;% end %&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre></div></div>
+
+<p>Go to <a href="http://localhost:4000/talks/1">http://localhost:4000/talks/1</a>
+It should work.</p>
+
+
+              </div>
+          </div>
+
+          <!-- Sidebar -->
+  <div id="sidebar">
+    <div class="inner">
+      <!-- Menu -->
+        <nav id="menu">
+          <header class="major">
+            <h2>Menu</h2>
+          </header>
+          <ul>
+            <li><a href="index.html">0. Getting started</a></li>
+            <li><a href="step1newapp.html">1. Create new project</a></li>
+            <li><a href="step2addpage.html">2. Add a new page</a></li>
+            <li><a href="step3addcategory.html">3. Add a feature</a></li>
+            <li><a href="step3addcategoryanswer.html">3a. Add a feature answer</a></li>
+            <li><a href="step4phoenixgenerator.html">4. Phoenix Generator</a></li>
+            <li><a href="step5seed.html">5. Populate the database</a></li>
+            <li><a href="step5seedanswer.html">5. Populate the database answer</a></li>
+            <li><a href="step6usersignin.html">6. Add Member Signup</a></li>
+            <li><a href="step7userprofiles.html">7. Add User Profiles</a></li>
+            <li><a href="step8agenda.html">8. Add agenda</a></li>
+            <li><a href="step9deploy.html">9. Deploy</a></li>
+            <li><a href="step10bonus.html">10. Bonus exercise</a></li>
+          </ul>
+        </nav>
+
+      <!-- Footer -->
+        <footer id="footer">
+          <p class="copyright">&copy; Phoenix Basics. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>. Jekyll integration: <a href="https://andrewbanchi.ch">Andrew Banchich</a>.</p>
+        </footer>
+
+    </div>
+  </div>
+
+
+      </div>
+
+      <!-- Scripts -->
+  <script src="http://localhost:9000/assets/js/jquery.min.js"></script>
+  <script src="http://localhost:9000/assets/js/skel.min.js"></script>
+  <script src="http://localhost:9000/assets/js/util.js"></script>
+  <!--[if lte IE 8]><script src="http://localhost:9000/assets/js/ie/respond.min.js"></script><![endif]-->
+  <script src="http://localhost:9000/assets/js/main.js"></script>
+
+
+</body>
+
+</html>

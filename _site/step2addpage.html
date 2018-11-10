@@ -1,0 +1,195 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+  <title>Phoenix Basics</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <!--[if lte IE 8]><script src="/assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <!--[if lte IE 9]><link rel="stylesheet" href="/assets/css/ie9.css" /><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" href="/assets/css/ie8.css" /><![endif]-->
+</head>
+
+
+<body>
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner">
+              <header id="header">
+                <a href="http://localhost:9000/" class="logo">
+                  <img src="/assets/images/conflogo.png">
+                  <strong>Phoenix Basics</strong> 
+                </a>
+              </header>
+
+                <!-- Content -->
+                <section>
+                	<header class="main">
+                		<h1>Add a page</h1>
+                	</header>
+
+                  
+
+                <p>(Use <code class="highlighter-rouge">git checkout 2.add_a_page</code> to catch up with the class)</p>
+
+<h2 id="add-a-page">Add a page</h2>
+<p>When a request is sent, Phoenix will look at the router file to figure out which controller handles the request. We can see all the routes by running <code class="highlighter-rouge">mix phx.routes</code> in the command line. To add a new endpoint, use this pattern: <code class="highlighter-rouge">[HTTP verb] [path], [controller], [function]</code>. Let’s add an about page to our app. First we need to add a GET path to our app.</p>
+<ol>
+  <li>Open <code class="highlighter-rouge">lib/fawkes_web/router.ex</code></li>
+  <li>
+    <p>Under <code class="highlighter-rouge">pipe_through :browser</code>, on line 18, add the line below to tell the application that  when a GET request for <code class="highlighter-rouge">/about</code>, the <code class="highlighter-rouge">about</code> function in the <code class="highlighter-rouge">PageController</code> will handle the request.</p>
+
+    <div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="n">get</span> <span class="sd">"</span><span class="s2">/about"</span><span class="p">,</span> <span class="no">PageController</span><span class="p">,</span> <span class="ss">:about</span>
+</code></pre></div>    </div>
+  </li>
+  <li>Open <code class="highlighter-rouge">lib/fawkes_web/controllers/page_controller.ex</code></li>
+  <li>
+    <p>Add the function to handle the request after the <code class="highlighter-rouge">index</code> function (maybe line 6):</p>
+
+    <div class="language-elixir highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="k">def</span> <span class="n">about</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">_params</span><span class="p">)</span> <span class="k">do</span>
+     <span class="n">render</span> <span class="n">conn</span><span class="p">,</span> <span class="sd">"</span><span class="s2">about.html"</span>
+   <span class="k">end</span>
+</code></pre></div>    </div>
+  </li>
+  <li>Create a new template at <code class="highlighter-rouge">lib/fawkes_web/templates/page/about.html.eex</code></li>
+  <li>Add the following content to the template:</li>
+</ol>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"section-white"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"banner-wrapper"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"/images/elixirconf.png"</span> <span class="na">class=</span><span class="s">"banner"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"text-center"</span><span class="nt">&gt;</span>4 - 7 September 2018  |  Bellevue, Washington<span class="nt">&lt;/p&gt;</span>
+
+  <span class="nt">&lt;hr</span> <span class="nt">/&gt;</span>
+
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"section"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;p&gt;</span>
+      ElixirConf® US is the premier conference for the Elixir community where Elixir developers from around the world gather.
+    <span class="nt">&lt;/p&gt;</span>
+
+    <span class="nt">&lt;p&gt;</span>ElixirConf® is dedicated to advancing the Elixir programming language and the communities and companies surrounding it by bringing together the technically minded to establish relationships for work, collaboration, and entrepreneurship.<span class="nt">&lt;/p&gt;</span>
+
+    <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"text-center"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/schedules"</span> <span class="na">class=</span><span class="s">"btn"</span><span class="nt">&gt;</span>View the Schedule<span class="nt">&lt;/a&gt;</span>
+    <span class="nt">&lt;/p&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container section venue"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;h4</span> <span class="na">class=</span><span class="s">"subheader"</span><span class="nt">&gt;</span>Hyatt Regency Bellevue, WA<span class="nt">&lt;/h4&gt;</span>
+<span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"/images/hyatt.png"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;h4</span> <span class="na">class=</span><span class="s">"subheader"</span><span class="nt">&gt;</span>VENUE<span class="nt">&lt;/h4&gt;</span>
+<span class="nt">&lt;p&gt;</span>The Hyatt Regency Bellevue is the largest of any Bellevue hotel on the Eastside of Seattle. It has a state-of-the-art StayFit™ Gym and Lap swimming pool, plus connecting sky bridges to access more than 250 shops, 45 restaurants and lounges, and exciting entertainment venues.<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;p&gt;</span>ElixirConf attendees can book a room at the hotel for $177 per night until the room block is sold out!<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;h4</span> <span class="na">class=</span><span class="s">"subheader"</span><span class="nt">&gt;</span>LOCATION<span class="nt">&lt;/h4&gt;</span>
+
+  <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"https://www.google.com/maps/place/900+Bellevue+Way+NE,+Bellevue,+WA+98004/@47.6182836,-122.2032197,17z/data=!3m1!4b1!4m5!3m4!1s0x54906c8f16498957:0x985f05ca82fc9bc2!8m2!3d47.61828!4d-122.201031"</span><span class="nt">&gt;</span>900 Bellevue Way NE Bellevue, WA, USA, 98004-4272<span class="nt">&lt;/a&gt;</span>
+
+<span class="nt">&lt;iframe</span> <span class="na">src=</span><span class="s">"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2689.403690964853!2d-122.20321432016335!3d47.618283595266206!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54906c8f16498957%3A0x83435bd9679eaf7!2sHyatt+Regency+Bellevue+on+Seattle's+Eastside!5e0!3m2!1sen!2sus!4v1491230376954"</span> <span class="na">allowfullscreen=</span><span class="s">""</span> <span class="na">width=</span><span class="s">"600"</span> <span class="na">height=</span><span class="s">"450"</span><span class="nt">&gt;&lt;/iframe&gt;</span>
+
+<span class="nt">&lt;p&gt;</span>Located 20 minutes from Sea-Tac International Airport and nine miles east of Seattle, the Hyatt Regency is convenient to the corporate headquarters of Microsoft, Eddie Bauer, Symetra, Paccar, Expedia, Nintendo, and T-Mobile.<span class="nt">&lt;/p&gt;</span>
+
+
+<span class="nt">&lt;h4</span> <span class="na">class=</span><span class="s">"subheader"</span><span class="nt">&gt;</span>TRANSPORTATION<span class="nt">&lt;/h4&gt;</span>
+<span class="nt">&lt;p&gt;</span>To get from the SEA Airport to the Hyatt Regency, the best options are lyft, Uber, taxi, or Shuttle Express.<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"text-center"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"https://book.passkey.com/go/ELIXIRCONFERENCE2018"</span> <span class="na">target=</span><span class="s">"_blank"</span> <span class="na">class=</span><span class="s">"btn"</span><span class="nt">&gt;</span>Book Your Room<span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<ol>
+  <li>
+    <p>Create a new file named <code class="highlighter-rouge">assets/css/about.css</code>. Add the following content to style the about page:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> .banner-wrapper {
+   text-align: center;
+   margin-top: 20px;
+   margin-bottom: 20px;
+ }
+
+ .banner {
+   width: 390px;
+ }
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Go to <a href="http://localhost:4000/about">http://localhost:4000/about</a></p>
+  </li>
+</ol>
+
+<h2 id="congratulations-we-have-a-new-page">Congratulations, we have a new page!!!</h2>
+
+<p><img src="http://wac.450f.edgecastcdn.net/80450F/thefw.com/files/2012/10/dancinggif.gif" /></p>
+
+<h2 id="resources">Resources</h2>
+<ol>
+  <li>https://hexdocs.pm/phoenix/routing.html#content</li>
+</ol>
+
+
+              </div>
+          </div>
+
+          <!-- Sidebar -->
+  <div id="sidebar">
+    <div class="inner">
+      <!-- Menu -->
+        <nav id="menu">
+          <header class="major">
+            <h2>Menu</h2>
+          </header>
+          <ul>
+            <li><a href="index.html">0. Getting started</a></li>
+            <li><a href="step1newapp.html">1. Create new project</a></li>
+            <li><a href="step2addpage.html">2. Add a new page</a></li>
+            <li><a href="step3addcategory.html">3. Add a feature</a></li>
+            <li><a href="step3addcategoryanswer.html">3a. Add a feature answer</a></li>
+            <li><a href="step4phoenixgenerator.html">4. Phoenix Generator</a></li>
+            <li><a href="step5seed.html">5. Populate the database</a></li>
+            <li><a href="step5seedanswer.html">5. Populate the database answer</a></li>
+            <li><a href="step6usersignin.html">6. Add Member Signup</a></li>
+            <li><a href="step7userprofiles.html">7. Add User Profiles</a></li>
+            <li><a href="step8agenda.html">8. Add agenda</a></li>
+            <li><a href="step9deploy.html">9. Deploy</a></li>
+            <li><a href="step10bonus.html">10. Bonus exercise</a></li>
+          </ul>
+        </nav>
+
+      <!-- Footer -->
+        <footer id="footer">
+          <p class="copyright">&copy; Phoenix Basics. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>. Jekyll integration: <a href="https://andrewbanchi.ch">Andrew Banchich</a>.</p>
+        </footer>
+
+    </div>
+  </div>
+
+
+      </div>
+
+      <!-- Scripts -->
+  <script src="http://localhost:9000/assets/js/jquery.min.js"></script>
+  <script src="http://localhost:9000/assets/js/skel.min.js"></script>
+  <script src="http://localhost:9000/assets/js/util.js"></script>
+  <!--[if lte IE 8]><script src="http://localhost:9000/assets/js/ie/respond.min.js"></script><![endif]-->
+  <script src="http://localhost:9000/assets/js/main.js"></script>
+
+
+</body>
+
+</html>

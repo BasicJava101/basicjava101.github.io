@@ -1,0 +1,146 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+  <title>Phoenix Basics</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <!--[if lte IE 8]><script src="/assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <!--[if lte IE 9]><link rel="stylesheet" href="/assets/css/ie9.css" /><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" href="/assets/css/ie8.css" /><![endif]-->
+</head>
+
+
+<body>
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner">
+              <header id="header">
+                <a href="http://localhost:9000/" class="logo">
+                  <img src="/assets/images/conflogo.png">
+                  <strong>Phoenix Basics</strong> 
+                </a>
+              </header>
+
+                <!-- Content -->
+                <section>
+                	<header class="main">
+                		<h1>Bonus exercise</h1>
+                	</header>
+
+                  
+
+                <p>Need more practice? Here are a few more things you can implement to make this app better.</p>
+
+<h2 id="attendees">Attendees</h2>
+
+<p>(Use <code class="highlighter-rouge">git checkout 10.bonus1</code> to catch up with the class)</p>
+
+<p>Open up <code class="highlighter-rouge">lib/fawkes_web/templates/talk/show.html.eex</code>. Scroll down to line 55 where it shows the list of attendees. Note that all these attendees are fake. In this exercise, you will retreive the users who added this talk to their agendas.</p>
+
+<ol>
+  <li>Open up <code class="highlighter-rouge">lib/fawkes/agenda/agenda.ex</code>. Add a function to retrieve the user given a talk id. Preload the user profile.</li>
+  <li>Open up <code class="highlighter-rouge">lib/fawkes_web/controller/talk_controller.ex</code>, in the <code class="highlighter-rouge">def show(conn, %{"id" =&gt; id})</code> function, call agenda to retrieve the users. Add that to the render function.</li>
+  <li>Open up <code class="highlighter-rouge">lib/fawkes_web/templates/talk/show.html.eex</code>, change the for loop to get the user <code class="highlighter-rouge">&lt;%= for user &lt;- @users do %&gt;</code>. Add a wrapper around the image to only show it if there is a profile. Then change the hardcode image to the user image. Add a wrapper around the github and twitter handle to only show it if there is a profile. Here is the result from the for loop.</li>
+</ol>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;%= for user &lt;- @users do %&gt;
+      &lt;div class="card col-sm-3"&gt;
+        &lt;div class="card-body"&gt;
+          &lt;%= if user.profile do %&gt;
+            &lt;img src="&lt;%= Fawkes.Uploader.Image.url({user.profile.image, user.profile}) %&gt;" class="rounded-circle"&gt;
+          &lt;% end %&gt;
+          &lt;i class="fas fa-check-circle attendee__check"&gt;&lt;/i&gt;
+          &lt;h4&gt;&lt;%= user.username %&gt;&lt;/h4&gt;
+          &lt;%= if user.profile do %&gt;
+            &lt;div class="speaker__handle"&gt;
+              &lt;i class="fab fa-github"&gt;&lt;/i&gt; &lt;%= user.profile.github %&gt;
+            &lt;/div&gt;
+            &lt;div class="speaker__handle"&gt;
+              &lt;i class="fab fa-twitter"&gt;&lt;/i&gt; &lt;%= user.profile.twitter %&gt;
+            &lt;/div&gt;
+          &lt;% end %&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;% end %&gt;
+</code></pre></div></div>
+
+<p>See the answer on <a href="https://github.com/PhoenixBasics/fawkes/compare/10.bonus1...10.bonus2?expand=1">Github</a></p>
+
+<h2 id="agenda-by-day">Agenda by day</h2>
+<p>(Use <code class="highlighter-rouge">git checkout 10.bonus2</code> to catch up with the class)</p>
+
+<p>In this exercise we’ll filter the talks by the day. Notice if you click on any of the date, it hits <code class="highlighter-rouge">schedule_slots</code> with the date param (<a href="http://localhost:4000/schedule_slots?date=2018-09-07">http://localhost:4000/schedule_slots?date=2018-09-07</a>).</p>
+
+<ol>
+  <li>Open <code class="highlighter-rouge">lib/fawkes_web/controller/slot_controller.ex</code>, edit the <code class="highlighter-rouge">index</code> function to pass the params date to <code class="highlighter-rouge">Schedule.list_schedule_slots</code>. Open up <code class="highlighter-rouge">lib/fawkes/schedule/schedule.ex</code>, change the <code class="highlighter-rouge">list_schedule_slots</code> function to take in a date. Parse the date, get the beginning of the day and end of the day. Then filter to return the slot within the given time frame. Here is some code to help you with the parsing.</li>
+</ol>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>parsed_date = Timex.parse!(date, "%Y-%m-%d", :strftime)
+beginning_of_day = Timex.beginning_of_day(parsed_date)
+end_of_day = Timex.end_of_day(parsed_date)
+</code></pre></div></div>
+
+<p>See the answer on <a href="https://github.com/PhoenixBasics/fawkes/compare/10.bonus2...10.bonus3?expand=1">Github</a></p>
+
+
+              </div>
+          </div>
+
+          <!-- Sidebar -->
+  <div id="sidebar">
+    <div class="inner">
+      <!-- Menu -->
+        <nav id="menu">
+          <header class="major">
+            <h2>Menu</h2>
+          </header>
+          <ul>
+            <li><a href="index.html">0. Getting started</a></li>
+            <li><a href="step1newapp.html">1. Create new project</a></li>
+            <li><a href="step2addpage.html">2. Add a new page</a></li>
+            <li><a href="step3addcategory.html">3. Add a feature</a></li>
+            <li><a href="step3addcategoryanswer.html">3a. Add a feature answer</a></li>
+            <li><a href="step4phoenixgenerator.html">4. Phoenix Generator</a></li>
+            <li><a href="step5seed.html">5. Populate the database</a></li>
+            <li><a href="step5seedanswer.html">5. Populate the database answer</a></li>
+            <li><a href="step6usersignin.html">6. Add Member Signup</a></li>
+            <li><a href="step7userprofiles.html">7. Add User Profiles</a></li>
+            <li><a href="step8agenda.html">8. Add agenda</a></li>
+            <li><a href="step9deploy.html">9. Deploy</a></li>
+            <li><a href="step10bonus.html">10. Bonus exercise</a></li>
+          </ul>
+        </nav>
+
+      <!-- Footer -->
+        <footer id="footer">
+          <p class="copyright">&copy; Phoenix Basics. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>. Jekyll integration: <a href="https://andrewbanchi.ch">Andrew Banchich</a>.</p>
+        </footer>
+
+    </div>
+  </div>
+
+
+      </div>
+
+      <!-- Scripts -->
+  <script src="http://localhost:9000/assets/js/jquery.min.js"></script>
+  <script src="http://localhost:9000/assets/js/skel.min.js"></script>
+  <script src="http://localhost:9000/assets/js/util.js"></script>
+  <!--[if lte IE 8]><script src="http://localhost:9000/assets/js/ie/respond.min.js"></script><![endif]-->
+  <script src="http://localhost:9000/assets/js/main.js"></script>
+
+
+</body>
+
+</html>

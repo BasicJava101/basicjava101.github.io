@@ -1,0 +1,337 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+  <title>Phoenix Basics</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <!--[if lte IE 8]><script src="/assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <!--[if lte IE 9]><link rel="stylesheet" href="/assets/css/ie9.css" /><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" href="/assets/css/ie8.css" /><![endif]-->
+</head>
+
+
+<body>
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner">
+              <header id="header">
+                <a href="http://localhost:9000/" class="logo">
+                  <img src="/assets/images/conflogo.png">
+                  <strong>Phoenix Basics</strong> 
+                </a>
+              </header>
+
+                <!-- Content -->
+                <section>
+                	<header class="main">
+                		<h1>Phoenix Generator</h1>
+                	</header>
+
+                  
+
+                <p>(Use <code class="highlighter-rouge">git checkout 4.phoenix_generator</code> to catch up with the class)</p>
+
+<p>Because adding CRUD application is so common, Phoenix comes with a task to generate all that code for us. Let’s generate a model to represent the level of the talk (e.g. beginner, advance).</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix phx.gen.html Schedule Audience audiences slug:string:unique name:string
+</code></pre></div></div>
+
+<p>Notice at the end of the command, it told us to add the new route <code class="highlighter-rouge">resources "/audiences", AudienceController</code> to our router. This will map all our CRUD operations. Let’s open our router <code class="highlighter-rouge">lib/fawkes_web/router.ex</code> and add:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>resources "/audiences", AudienceController
+</code></pre></div></div>
+
+<p>To check to see what routes were added, let’s run</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix phx.routes
+</code></pre></div></div>
+
+<p>Now let’s run our migration to create the table:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix ecto.migrate
+</code></pre></div></div>
+
+<p>Alright, let’s check to see if it works <a href="http://localhost:4000/audiences">http://localhost:4000/audiences</a>.</p>
+
+<p>Well, that was a lot of work.</p>
+
+<h2 id="other-models">Other models</h2>
+<p>(Use <code class="highlighter-rouge">git checkout 4a.generate_other_models</code> to catch up with the class)</p>
+
+<p>Let’s generate a few more models for our application.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix phx.gen.html Schedule Slot schedule_slots slug:string:unique start_time:utc_datetime end_time:utc_datetime
+</code></pre></div></div>
+
+<p>Let’s add the resource to our router <code class="highlighter-rouge">lib/fawkes_web/router.ex</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>resources "/schedule_slots", SlotController
+</code></pre></div></div>
+
+<p>Now let’s add locations. Because we don’t need the front end for this, we will only generate the schema:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix phx.gen.schema Schedule.Location locations slug:string:unique name:string
+</code></pre></div></div>
+
+<p>Same for event.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix phx.gen.schema Schedule.Event events slug:string:unique name:string slot_id:references:schedule_slots
+</code></pre></div></div>
+
+<p>For the talk, we need to view the talks, so we will generate everything.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix phx.gen.html Schedule Talk talks slug:string:unique title:string slot_id:references:schedule_slots audience_id:references:audiences location_id:references:locations description:text
+</code></pre></div></div>
+
+<p>Let’s add the resource to our router <code class="highlighter-rouge">lib/fawkes_web/router.ex</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>resources "/talks", TalkController
+</code></pre></div></div>
+
+<h2 id="speaker">Speaker</h2>
+<p>(Use <code class="highlighter-rouge">git checkout 4b.speaker</code> to catch up with the class)</p>
+
+<p>Before we generate the speaker, let’s generate a migration to add citext to our database. Citext will ignore case when searching for text.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix ecto.gen.migration enable_citext_extension
+</code></pre></div></div>
+
+<p>Open up the migration file <code class="highlighter-rouge">priv/repo/migrations/[date]_enable_citext_extension.exs</code>. Add code to add citext.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>defmodule Fawkes.Repo.Migrations.EnableCitextExtension do
+  use Ecto.Migration
+
+  def change do
+    execute "CREATE EXTENSION citext", "DROP EXTENSION citext"
+  end
+end
+</code></pre></div></div>
+
+<p>Now we’re ready to generate the speaker.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix phx.gen.html Schedule Speaker profiles talk_id:references:talks slug:string:unique image:string image_url:string first:string last:string company:string github:string twitter:string description:text
+</code></pre></div></div>
+
+<p>Let’s add the routes for the speakers:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>resources "/speakers", SpeakerController
+</code></pre></div></div>
+
+<p>We need one more migration to link the category to the talks:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix ecto.gen.migration create_talks_categories
+</code></pre></div></div>
+
+<p>Open up the migration file <code class="highlighter-rouge">priv/repo/migrations/[date]_create_talks_categories.exs</code>, add the code for the migration</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>defmodule Fawkes.Repo.Migrations.CreateTalksCategories do
+  use Ecto.Migration
+
+  def change do
+    create table(:talks_categories) do
+      add :talk_id, references(:talks, on_delete: :nothing)
+      add :category_id, references(:categories, on_delete: :nothing)
+    end
+
+    create index(:talks_categories, [:talk_id])
+    create index(:talks_categories, [:category_id])
+  end
+end
+</code></pre></div></div>
+
+<p>Now let’s run our migration to add all the tables:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix ecto.migrate
+</code></pre></div></div>
+
+<h2 id="relationships">Relationships</h2>
+<p>(Use <code class="highlighter-rouge">git checkout 4c.relationships</code> to catch up with the class)</p>
+
+<p>Now that we have our models generated, let’s define their relationship. Open the <code class="highlighter-rouge">Category</code> module <code class="highlighter-rouge">lib/fawkes/schedule/category.ex</code> and add this code in the schema, below the fields to say that a <code class="highlighter-rouge">Category</code> has many talks.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>many_to_many :talks, Fawkes.Schedule.Talk, join_through: "talks_categories"
+</code></pre></div></div>
+
+<p>For <code class="highlighter-rouge">Audience</code> module <code class="highlighter-rouge">lib/fawkes/schedule/audience.ex</code>, add add this code in the schema, below the fields to say that an audience has many talks.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>has_many :talks, Fawkes.Schedule.Talk
+</code></pre></div></div>
+
+<p>A speaker belongs to a talk, so open <code class="highlighter-rouge">lib/fawkes/schedule/speaker.ex</code>, delete the line for the <code class="highlighter-rouge">talk_id</code> field and replace it with the belongs_to relationship:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>belongs_to :talk, Fawkes.Schedule.Talk
+</code></pre></div></div>
+
+<p>Remove image, company, github, twitter, and description from the required fields.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>|&gt; validate_required([:slug, :image_url, :first, :last])
+</code></pre></div></div>
+
+<p>Add <code class="highlighter-rouge">talk_id</code> to the cast</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>|&gt; cast(attrs, [:slug, :image, :image_url, :first, :last, :company, :github, :twitter, :description, :talk_id])
+</code></pre></div></div>
+
+<p>Open <code class="highlighter-rouge">lib/fawkes/schedule/talk.ex</code>, <span style="color:red">delete the fields for audience, location, slot</span>. Add the following relationships:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>many_to_many :categories, Fawkes.Schedule.Category, join_through: "talks_categories"
+belongs_to :audience, Fawkes.Schedule.Audience
+belongs_to :location, Fawkes.Schedule.Location
+belongs_to :slot, Fawkes.Schedule.Slot
+has_many :speakers, Fawkes.Schedule.Speaker
+</code></pre></div></div>
+
+<p>So that your schema section looks like this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  schema "talks" do
+    field :description, :string
+    field :slug, :string
+    field :title, :string
+
+    many_to_many :categories, Fawkes.Schedule.Category, join_through: "talks_categories"
+    belongs_to :audience, Fawkes.Schedule.Audience
+    belongs_to :location, Fawkes.Schedule.Location
+    belongs_to :slot, Fawkes.Schedule.Slot
+    has_many :speakers, Fawkes.Schedule.Speaker
+
+    timestamps()
+  end
+</code></pre></div></div>
+
+<p>For the <code class="highlighter-rouge">cast</code>, add in <code class="highlighter-rouge">:audience_id, :location_id, :slot_id</code> like this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>|&gt; cast(attrs, [:slug, :title, :description, :audience_id, :location_id, :slot_id])
+</code></pre></div></div>
+
+<p>In addition to the validation, in the changeset you can set the constraint that the child can’t be created if the parent doesn’t exist.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>|&gt; assoc_constraint(:audience)
+|&gt; assoc_constraint(:slot)
+|&gt; assoc_constraint(:location)
+</code></pre></div></div>
+
+<p>Your talk changeset should look like this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def changeset(talk, attrs) do
+  talk
+  |&gt; cast(attrs, [:slug, :title, :description, :audience_id, :location_id, :slot_id])
+  |&gt; validate_required([:slug, :title, :description])
+  |&gt; unique_constraint(:slug)
+  |&gt; assoc_constraint(:audience)
+  |&gt; assoc_constraint(:slot)
+  |&gt; assoc_constraint(:location)
+end
+</code></pre></div></div>
+
+<p>Open <code class="highlighter-rouge">lib/fawkes/schedule/slot.ex</code>, let’s add the talk and event relationship.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>has_many :talks, Fawkes.Schedule.Talk
+has_one :event, Fawkes.Schedule.Event
+</code></pre></div></div>
+
+<p>Open <code class="highlighter-rouge">lib/fawkes/schedule/event.ex</code>, add <code class="highlighter-rouge">slot_id</code> to the cast call.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>|&gt; cast(attrs, [:slug, :name, :slot_id])
+</code></pre></div></div>
+
+<h3 id="add-timex-dependency">Add Timex dependency</h3>
+<p>(Use <code class="highlighter-rouge">git checkout 4d.timex</code> to catch up with the class)</p>
+
+<p>Open <code class="highlighter-rouge">mix.exs</code>, after line 33 in the <code class="highlighter-rouge">deps</code> block, add a comma, then timex_ecto</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{:timex_ecto, "~&gt; 3.3"}
+</code></pre></div></div>
+
+<p>Let’s get the dependency by running:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mix deps.get
+</code></pre></div></div>
+
+<p>Now open <code class="highlighter-rouge">lib/fawkes/schedule/slot.ex</code> again. Change the start and end time to <code class="highlighter-rouge">Timex.Ecto.DateTime</code> so your slot schema looks like this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>schema "schedule_slots" do
+  field :end_time, Timex.Ecto.DateTime
+  field :slug, :string
+  field :start_time, Timex.Ecto.DateTime
+
+  has_many :talks, Fawkes.Schedule.Talk
+  has_one :event, Fawkes.Schedule.Event
+
+  timestamps()
+end
+</code></pre></div></div>
+
+<p>One last thing before we can test it out. Open <code class="highlighter-rouge">lib/fawkes_web/views/slot_view.ex</code>. Add a function to get the dates.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def conference_dates do
+  format = "{YYYY}-{M}-{D}"
+
+  [Timex.parse!("2018-09-04", format),
+   Timex.parse!("2018-09-05", format),
+   Timex.parse!("2018-09-06", format),
+   Timex.parse!("2018-09-07", format)]
+end
+</code></pre></div></div>
+
+
+              </div>
+          </div>
+
+          <!-- Sidebar -->
+  <div id="sidebar">
+    <div class="inner">
+      <!-- Menu -->
+        <nav id="menu">
+          <header class="major">
+            <h2>Menu</h2>
+          </header>
+          <ul>
+            <li><a href="index.html">0. Getting started</a></li>
+            <li><a href="step1newapp.html">1. Create new project</a></li>
+            <li><a href="step2addpage.html">2. Add a new page</a></li>
+            <li><a href="step3addcategory.html">3. Add a feature</a></li>
+            <li><a href="step3addcategoryanswer.html">3a. Add a feature answer</a></li>
+            <li><a href="step4phoenixgenerator.html">4. Phoenix Generator</a></li>
+            <li><a href="step5seed.html">5. Populate the database</a></li>
+            <li><a href="step5seedanswer.html">5. Populate the database answer</a></li>
+            <li><a href="step6usersignin.html">6. Add Member Signup</a></li>
+            <li><a href="step7userprofiles.html">7. Add User Profiles</a></li>
+            <li><a href="step8agenda.html">8. Add agenda</a></li>
+            <li><a href="step9deploy.html">9. Deploy</a></li>
+            <li><a href="step10bonus.html">10. Bonus exercise</a></li>
+          </ul>
+        </nav>
+
+      <!-- Footer -->
+        <footer id="footer">
+          <p class="copyright">&copy; Phoenix Basics. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>. Jekyll integration: <a href="https://andrewbanchi.ch">Andrew Banchich</a>.</p>
+        </footer>
+
+    </div>
+  </div>
+
+
+      </div>
+
+      <!-- Scripts -->
+  <script src="http://localhost:9000/assets/js/jquery.min.js"></script>
+  <script src="http://localhost:9000/assets/js/skel.min.js"></script>
+  <script src="http://localhost:9000/assets/js/util.js"></script>
+  <!--[if lte IE 8]><script src="http://localhost:9000/assets/js/ie/respond.min.js"></script><![endif]-->
+  <script src="http://localhost:9000/assets/js/main.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+  <title>Phoenix Basics</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <!--[if lte IE 8]><script src="/assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <!--[if lte IE 9]><link rel="stylesheet" href="/assets/css/ie9.css" /><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" href="/assets/css/ie8.css" /><![endif]-->
+</head>
+
+
+<body>
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner">
+              <header id="header">
+                <a href="http://localhost:9000/" class="logo">
+                  <img src="/assets/images/conflogo.png">
+                  <strong>Phoenix Basics</strong> 
+                </a>
+              </header>
+
+                <!-- Content -->
+                <section>
+                	<header class="main">
+                		<h1>Add a feature - Answer</h1>
+                	</header>
+
+                  
+
+                <h2 id="show-category">Show Category</h2>
+
+<p>In <code class="highlighter-rouge">schedule.ex</code>, add</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def get_category!(id) do
+  Repo.get!(Category, id)
+end
+</code></pre></div></div>
+
+<p>In <code class="highlighter-rouge">category_controller.ex</code>, add</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def show(conn, %{"id" =&gt; id}) do
+  category = Schedule.get_category!(id)
+  render(conn, "show.html", category: category)
+end
+</code></pre></div></div>
+
+<p>Create a new file <code class="highlighter-rouge">lib/fawkes_web/templates/category/show.html.eex</code> and add this code:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;h1&gt;Category&lt;/h1&gt;
+&lt;p&gt;Name: &lt;%= @category.name %&gt;&lt;/p&gt;
+&lt;p&gt;Slug: &lt;%= @category.slug %&gt;&lt;/p&gt;
+&lt;p&gt;Icon URL: &lt;%= @category.icon_url %&gt;&lt;/p&gt;
+</code></pre></div></div>
+
+<p>In the <code class="highlighter-rouge">router.ex</code> file, add this path below new category:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>get "/categories/:id", CategoryController, :show
+</code></pre></div></div>
+
+<h2 id="delete-category">Delete Category</h2>
+
+<p>(Use <code class="highlighter-rouge">git checkout 3f.delete_category</code> to catch up with the class)</p>
+
+<p>In the <code class="highlighter-rouge">lib/fawkes_web/templates/category/index.html.eex</code>, add this next to show:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;span&gt;&lt;%= link "Delete", to: category_path(@conn, :delete, category), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %&gt;&lt;/span&gt;
+</code></pre></div></div>
+
+<p>In the <code class="highlighter-rouge">router.ex</code>, add this code below show category</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>delete "/category/:id", CategoryController, :delete
+</code></pre></div></div>
+
+<p>In the <code class="highlighter-rouge">category_controller</code>, add this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def delete(conn, %{"id" =&gt; id}) do
+  {:ok, _category} = Schedule.delete_category(id)
+
+  conn
+  |&gt; put_flash(:info, "Category deleted.")
+  |&gt; redirect(to: category_path(conn, :index))  end
+end
+</code></pre></div></div>
+
+<p>In the schedule, add this to delete category:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def delete_category(category) do
+  id
+  |&gt; get_category!()
+  |&gt; Repo.delete()
+end
+</code></pre></div></div>
+
+
+              </div>
+          </div>
+
+          <!-- Sidebar -->
+  <div id="sidebar">
+    <div class="inner">
+      <!-- Menu -->
+        <nav id="menu">
+          <header class="major">
+            <h2>Menu</h2>
+          </header>
+          <ul>
+            <li><a href="index.html">0. Getting started</a></li>
+            <li><a href="step1newapp.html">1. Create new project</a></li>
+            <li><a href="step2addpage.html">2. Add a new page</a></li>
+            <li><a href="step3addcategory.html">3. Add a feature</a></li>
+            <li><a href="step3addcategoryanswer.html">3a. Add a feature answer</a></li>
+            <li><a href="step4phoenixgenerator.html">4. Phoenix Generator</a></li>
+            <li><a href="step5seed.html">5. Populate the database</a></li>
+            <li><a href="step5seedanswer.html">5. Populate the database answer</a></li>
+            <li><a href="step6usersignin.html">6. Add Member Signup</a></li>
+            <li><a href="step7userprofiles.html">7. Add User Profiles</a></li>
+            <li><a href="step8agenda.html">8. Add agenda</a></li>
+            <li><a href="step9deploy.html">9. Deploy</a></li>
+            <li><a href="step10bonus.html">10. Bonus exercise</a></li>
+          </ul>
+        </nav>
+
+      <!-- Footer -->
+        <footer id="footer">
+          <p class="copyright">&copy; Phoenix Basics. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>. Jekyll integration: <a href="https://andrewbanchi.ch">Andrew Banchich</a>.</p>
+        </footer>
+
+    </div>
+  </div>
+
+
+      </div>
+
+      <!-- Scripts -->
+  <script src="http://localhost:9000/assets/js/jquery.min.js"></script>
+  <script src="http://localhost:9000/assets/js/skel.min.js"></script>
+  <script src="http://localhost:9000/assets/js/util.js"></script>
+  <!--[if lte IE 8]><script src="http://localhost:9000/assets/js/ie/respond.min.js"></script><![endif]-->
+  <script src="http://localhost:9000/assets/js/main.js"></script>
+
+
+</body>
+
+</html>
