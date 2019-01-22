@@ -1630,16 +1630,16 @@ a {
   -ms-transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
   transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
   border-bottom: dotted 1px;
-  color: #4f235f;
+  color: #ED8B00;
   text-decoration: none; }
   a:hover {
-    border-bottom-color: #4f235f;
-    color: #4f235f !important; }
+    border-bottom-color: #ED8B00;
+    color: #ED8B00 !important; }
     a:hover strong {
       color: inherit; }
 
 strong, b {
-  color: #3d4449;
+  color: #007396;
   font-weight: 600; }
 
 em, i {
@@ -1649,7 +1649,7 @@ p {
   margin: 0 0 2em 0; }
 
 h1, h2, h3, h4, h5, h6 {
-  color: #3d4449;
+  color: #007396;
   font-family: "Roboto Slab", serif;
   font-weight: 700;
   line-height: 1.5;
@@ -1755,7 +1755,7 @@ header p {
   margin-top: -0.5em;
   text-transform: uppercase; }
 header.major > :last-child {
-  border-bottom: solid 3px #4f235f;
+  border-bottom: solid 3px #ED8B00;
   display: inline-block;
   margin: 0 0 2em 0;
   padding: 0 0.75em 0.5em 0; }
@@ -1767,7 +1767,7 @@ form {
   margin: 0 0 2em 0; }
 
 label {
-  color: #3d4449;
+  color: #007396;
   display: block;
   font-size: 0.9em;
   font-weight: 600;
@@ -1812,8 +1812,8 @@ textarea {
   input[type="url"]:focus,
   select:focus,
   textarea:focus {
-    border-color: #4f235f;
-    box-shadow: 0 0 0 1px #4f235f; }
+    border-color: #ED8B00;
+    box-shadow: 0 0 0 1px #ED8B00; }
 
 .select-wrapper {
   text-decoration: none;
@@ -1900,14 +1900,14 @@ input[type="radio"] {
       width: 1.65em; }
   input[type="checkbox"]:checked + label:before,
   input[type="radio"]:checked + label:before {
-    background: #3d4449;
-    border-color: #3d4449;
+    background: #007396;
+    border-color: #007396;
     color: #ffffff;
     content: '\f00c'; }
   input[type="checkbox"]:focus + label:before,
   input[type="radio"]:focus + label:before {
-    border-color: #4f235f;
-    box-shadow: 0 0 0 1px #4f235f; }
+    border-color: #ED8B00;
+    box-shadow: 0 0 0 1px #ED8B00; }
 
 input[type="checkbox"] + label:before {
   border-radius: 0.375em; }
@@ -2065,7 +2065,7 @@ ul {
         font-weight: normal;
         text-transform: none !important; }
       ul.contact li:before {
-        color: #4f235f;
+        color: #ED8B00;
         display: inline-block;
         font-size: 1.5em;
         height: 1.125em;
@@ -2147,12 +2147,12 @@ ul {
         padding: 0 0.5em;
         text-align: center; }
         ul.pagination li > .page.active {
-          background-color: #4f235f;
+          background-color: #ED8B00;
           color: #ffffff !important; }
           ul.pagination li > .page.active:hover {
-            background-color: #58276a; }
+            background-color: #fc9400; }
           ul.pagination li > .page.active:active {
-            background-color: #461f54; }
+            background-color: #de8200; }
       ul.pagination li:first-child {
         padding-right: 0.75em; }
       ul.pagination li:last-child {
@@ -2189,7 +2189,7 @@ table {
   table td {
     padding: 0.75em 0.75em; }
   table th {
-    color: #3d4449;
+    color: #007396;
     font-size: 0.9em;
     font-weight: 600;
     padding: 0 0.75em 0.75em 0.75em;
@@ -2230,8 +2230,8 @@ button,
   background-color: transparent;
   border-radius: 0.375em;
   border: 0;
-  box-shadow: inset 0 0 0 2px #4f235f;
-  color: #4f235f !important;
+  box-shadow: inset 0 0 0 2px #ED8B00;
+  color: #ED8B00 !important;
   cursor: pointer;
   display: inline-block;
   font-family: "Roboto Slab", serif;
@@ -2250,13 +2250,13 @@ button,
   input[type="button"]:hover,
   button:hover,
   .button:hover {
-    background-color: rgba(79, 35, 95, 0.05); }
+    background-color: rgba(237, 139, 0, 0.05); }
   input[type="submit"]:active,
   input[type="reset"]:active,
   input[type="button"]:active,
   button:active,
   .button:active {
-    background-color: rgba(79, 35, 95, 0.15); }
+    background-color: rgba(237, 139, 0, 0.15); }
   input[type="submit"].icon:before,
   input[type="reset"].icon:before,
   input[type="button"].icon:before,
@@ -2290,7 +2290,7 @@ button,
   input[type="button"].special,
   button.special,
   .button.special {
-    background-color: #4f235f;
+    background-color: #ED8B00;
     box-shadow: none;
     color: #ffffff !important; }
     input[type="submit"].special:hover,
@@ -2298,13 +2298,13 @@ button,
     input[type="button"].special:hover,
     button.special:hover,
     .button.special:hover {
-      background-color: #58276a; }
+      background-color: #fc9400; }
     input[type="submit"].special:active,
     input[type="reset"].special:active,
     input[type="button"].special:active,
     button.special:active,
     .button.special:active {
-      background-color: #461f54; }
+      background-color: #de8200; }
   input[type="submit"].disabled, input[type="submit"]:disabled,
   input[type="reset"].disabled,
   input[type="reset"]:disabled,
@@ -2382,7 +2382,7 @@ button,
       text-align: center;
       width: 10em; }
       .features article .icon:before {
-        color: #4f235f;
+        color: #ED8B00;
         font-size: 2.75rem;
         position: relative;
         top: 0.05em; }
@@ -2806,7 +2806,7 @@ button,
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
-  border-bottom: solid 5px #4f235f;
+  border-bottom: solid 5px #ED8B00;
   padding-top: 5px;
   padding-left: 50px;
   position: relative; }
@@ -2822,7 +2822,7 @@ button,
     font-family: "Roboto Slab", serif;
     font-size: 1.125em; }
     #header .logo img {
-      width: 70px; }
+      width: 40px; }
   #header .icons {
     text-align: right; }
   @media screen and (max-width: 1680px) {
@@ -2932,7 +2932,7 @@ button,
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  color: #3d4449;
+  color: #007396;
   font-family: "Roboto Slab", serif;
   font-family: 400;
   letter-spacing: 0.075em;
@@ -2948,7 +2948,7 @@ button,
     font-size: 0.9em;
     padding: 0.625em 0; }
     #menu ul a:hover, #menu ul span:hover {
-      color: #4f235f; }
+      color: #ED8B00; }
     #menu ul a.opener, #menu ul span.opener {
       -moz-transition: color 0.2s ease-in-out;
       -webkit-transition: color 0.2s ease-in-out;
@@ -2974,7 +2974,7 @@ button,
         position: absolute;
         right: 0; }
       #menu ul a.opener:hover:before, #menu ul span.opener:hover:before {
-        color: #4f235f; }
+        color: #ED8B00; }
       #menu ul a.opener.active + ul, #menu ul span.opener.active + ul {
         display: block; }
       #menu ul a.opener.active:before, #menu ul span.opener.active:before {
