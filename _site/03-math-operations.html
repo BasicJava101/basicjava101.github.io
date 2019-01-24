@@ -1,0 +1,237 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+  <title>Phoenix Basics</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <!--[if lte IE 8]><script src="/assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <!--[if lte IE 9]><link rel="stylesheet" href="/assets/css/ie9.css" /><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" href="/assets/css/ie8.css" /><![endif]-->
+</head>
+
+
+<body>
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner">
+              <header id="header">
+                <a href="http://localhost:9000/" class="logo">
+                  <img src="/assets/images/java.png">
+                </a>
+              </header>
+
+                <!-- Content -->
+                <section>
+                	<header class="main">
+                		<h1>Math operations</h1>
+                	</header>
+
+                  
+
+                <p>You can do mathematical operations on Java numbers and char. Java numbers are byte, short, int, long, float, and decimal.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Operation</th>
+      <th>Sign</th>
+      <th>Example</th>
+      <th>Result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Addition</td>
+      <td>+</td>
+      <td>7 + 8</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td>Subtraction</td>
+      <td>-</td>
+      <td>7 - 8</td>
+      <td>-1</td>
+    </tr>
+    <tr>
+      <td>Multiplication</td>
+      <td>*</td>
+      <td>7 * 8</td>
+      <td>56</td>
+    </tr>
+    <tr>
+      <td>Division</td>
+      <td>/</td>
+      <td>8/2</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>Modulus(/Remainder)</td>
+      <td>%</td>
+      <td>1 % 2</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Everything should be easy to understand. Two tricky part are division and modulus. Let’s go over them in details.</p>
+
+<h3 id="division">Division</h3>
+
+<p>When you divide an integer with an integer, then you will get an integer back which means it won’t have any decimal.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int x = 11;
+int y = 2;
+
+int result = 11/2; //result is 5 instead of 5.5
+
+</code></pre></div></div>
+
+<p>What you need to do is turn one of the number into a double.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int x = 11;
+double y = 2;
+
+int result = 11/2;
+
+</code></pre></div></div>
+
+<p>Or you can cast one of the number into a double.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int x = 11;
+int y = 2;
+
+int result = (double)11/2;
+</code></pre></div></div>
+
+<h3 id="modulus">Modulus</h3>
+
+<p>The <code class="highlighter-rouge">%</code> sign is used to calculate the remainder of a number.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4 % 3 // returns 1 because 4 divides by 3 will yields a reminder of 1
+5 % 3 // returns 2 because 5 divides by 3 will yields a reminder of 2
+6 % 3 // returns 0 because 6 divides evenly into 3, therefore the remainder is 0
+
+</code></pre></div></div>
+
+<p>To check a number is divisible by another number, you check if the remainder is 0.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>9 % 3 == 0; // 9 is divisible by 0
+</code></pre></div></div>
+
+<p>A number is even if it divides evenly into 2. Therefore, to check if it’s even, check if the remainder is 0.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>number % 2 == 0; //number is even
+</code></pre></div></div>
+
+<p>A number is odd if it divides by 2 and the remainder is 1.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>number % 2 == 1; //number is odd
+</code></pre></div></div>
+
+<h2 id="comparison-operators">Comparison Operators</h2>
+
+<table>
+    <thead>
+      <tr>
+        <th>Example&nbsp;&nbsp;&nbsp;</th>
+        <th>Name</th>
+        <th>Result</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>a == b</code></td>
+        <td>Equal</td>
+        <td><strong><code>TRUE</code></strong> if <code>a</code> is equal to <code>b</code> (can be different types).</td>
+      </tr>
+      <tr>
+        <td><code>a != b</code></td>
+        <td>Not equal</td>
+        <td><strong><code>TRUE</code></strong> if <code>a</code> is not equal to <code>b</code> (can be different types).</td>
+      </tr>
+      <tr>
+        <td><code>a &lt; b</code></td>
+        <td>Less than</td>
+        <td><strong><code>TRUE</code></strong> if <code>a</code> is strictly less than <code>b</code>.</td>
+      </tr>
+      <tr>
+        <td><code>a &gt; b</code></td>
+        <td>Greater than</td>
+        <td><strong><code>TRUE</code></strong> if <code>a</code> is strictly greater than <code>b</code>.</td>
+      </tr>
+      <tr>
+        <td><code>a &lt;= b</code></td>
+        <td>Less than or equal to </td>
+        <td><strong><code>TRUE</code></strong> if <code>a</code> is less than or equal to <code>b</code>.</td>
+      </tr>
+      <tr>
+        <td><code>a &gt;= b</code></td>
+        <td>Greater than or equal to </td>
+        <td><strong><code>TRUE</code></strong> if <code>a</code> is greater than or equal to <code>b</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+              </div>
+          </div>
+
+          <!-- Sidebar -->
+  <div id="sidebar">
+    <div class="inner">
+      <!-- Menu -->
+        <nav id="menu">
+          <header class="major">
+            <h2>Menu</h2>
+          </header>
+          <ul>
+            <li><a href="index.html">0. Getting started</a></li>
+            <li><a href="01-datatype.html">1. Data Types</a></li>
+            <li><a href="02-variable.html">2. Variable</a></li>
+            <li><a href="03-math-operations.html">3. Math Operations</a></li>
+            <li><a href="03-math-operations.html">3. Math Operations</a></li>
+            <li><a href="04-string.html">4. String</a></li>
+            <li><a href="step4phoenixgenerator.html">4. Phoenix Generator</a></li>
+            <li><a href="step5seed.html">5. Populate the database</a></li>
+            <li><a href="step5seedanswer.html">5. Populate the database answer</a></li>
+            <li><a href="step6usersignin.html">6. Add Member Signup</a></li>
+            <li><a href="step7userprofiles.html">7. Add User Profiles</a></li>
+            <li><a href="step8agenda.html">8. Add agenda</a></li>
+            <li><a href="step9deploy.html">9. Deploy</a></li>
+            <li><a href="step10bonus.html">10. Bonus exercise</a></li>
+          </ul>
+        </nav>
+
+      <!-- Footer -->
+        <footer id="footer">
+          <p class="copyright">&copy; Phoenix Basics. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>. Jekyll integration: <a href="https://andrewbanchi.ch">Andrew Banchich</a>.</p>
+        </footer>
+
+    </div>
+  </div>
+
+
+      </div>
+
+      <!-- Scripts -->
+  <script src="http://localhost:9000/assets/js/jquery.min.js"></script>
+  <script src="http://localhost:9000/assets/js/skel.min.js"></script>
+  <script src="http://localhost:9000/assets/js/util.js"></script>
+  <!--[if lte IE 8]><script src="http://localhost:9000/assets/js/ie/respond.min.js"></script><![endif]-->
+  <script src="http://localhost:9000/assets/js/main.js"></script>
+
+
+</body>
+
+</html>

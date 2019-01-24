@@ -23,6 +23,20 @@ int numberToCube = 4;
 numberToCube * numberToCube * numberToCube;
 ```
 
+Variable is especially useful when you don't know what the input is. For example, you want to ask the user for their name so you can display it. You don't know what the user is going to say, so you have to store it into a variable. The code below will ask the user for their name then display it. Don't worry about understanding all the code below.
+
+```
+//prints a message to ask for the user's name
+System.out.println("What is your name?");
+
+//get the user name
+Scanner scanner = new Scanner(System.in);
+String name = scanner.next();
+
+//prints out the user name
+System.out.println("Your name is " + name);
+```
+
 ## Declaring a variable
 
 To declare a variable, you need to say what type it is and a value. You can use primitive data types or object types. We will talk more about object later.

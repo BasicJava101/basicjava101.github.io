@@ -56,6 +56,7 @@ Numbers with fractions
 | float  | 4 bytes             | Approximately ±3.40282347E+38F (6–7 significant decimal digits) |
 | double | 8 bytes             | Approximately ±1.79769313486231570E+308 (15 significant decimal digits)|
 
+Developers generally uses double because the precision is better. Because of the way double are store is not 100% correct, in the real world, we do not use double or float for money. 
 
 ### Casting
 
