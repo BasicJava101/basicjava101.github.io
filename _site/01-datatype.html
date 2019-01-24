@@ -1,0 +1,255 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+  <title>Phoenix Basics</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <!--[if lte IE 8]><script src="/assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <!--[if lte IE 9]><link rel="stylesheet" href="/assets/css/ie9.css" /><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" href="/assets/css/ie8.css" /><![endif]-->
+</head>
+
+
+<body>
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner">
+              <header id="header">
+                <a href="http://localhost:9000/" class="logo">
+                  <img src="/assets/images/java.png">
+                </a>
+              </header>
+
+                <!-- Content -->
+                <section>
+                	<header class="main">
+                		<h1>Data Types</h1>
+                	</header>
+
+                  
+
+                <p>In Java, there are 8 primitive data types. They are the basic building blocks for the language. You can build complex objects and applications based on these data types, similar to how you can create a skyscraper out of simple Lego pieces.</p>
+
+<ol>
+  <li>byte</li>
+  <li>short</li>
+  <li>int</li>
+  <li>long</li>
+  <li>float</li>
+  <li>double</li>
+  <li>char</li>
+  <li>boolean</li>
+</ol>
+
+<hr />
+
+<h2 id="integer-types">Integer Types</h2>
+
+<p>For negative and positive numbers without fractions, you have four choices: byte, short, int, and long.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th style="text-align: left">Storage</th>
+      <th style="text-align: left">Range (Inclusive)</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>byte</td>
+      <td style="text-align: left">1 byte</td>
+      <td style="text-align: left">-128 to 127</td>
+      <td><code class="highlighter-rouge">byte b = 127;</code></td>
+    </tr>
+    <tr>
+      <td>short</td>
+      <td style="text-align: left">2 bytes</td>
+      <td style="text-align: left">–32,768 to 32,767</td>
+      <td><code class="highlighter-rouge">short s = 30000;</code> <code class="highlighter-rouge">short s1 = -32_000;</code></td>
+    </tr>
+    <tr>
+      <td>int</td>
+      <td style="text-align: left">4 bytes</td>
+      <td style="text-align: left">–2,147,483,648 to 2,147,483, 647 (just over 2 billion)</td>
+      <td><code class="highlighter-rouge">int i = 20;</code></td>
+    </tr>
+    <tr>
+      <td>long</td>
+      <td style="text-align: left">8 bytes</td>
+      <td style="text-align: left">–9,223,372,036,854,775,808 to 9,223,372,036,854,775,807</td>
+      <td><code class="highlighter-rouge">long l = 100;</code> <code class="highlighter-rouge">long l1 = 100L;</code> <code class="highlighter-rouge">long l2 = 100l;</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="byte">Byte</h3>
+<p>Note for each type, there is a storage associated with it. The storage space is called byte. Think of it like a bucket. It refers to how many bucket is needed to store the number.  This is important when memory was expensive. But now, memory is usually not a factor for most computer, so most developers use <code class="highlighter-rouge">int</code> for simple numbers and <code class="highlighter-rouge">long</code> for large numbers.</p>
+
+<h3 id="casting">Casting</h3>
+
+<p>Java automatically converts a smaller type number into a larger type because it is not losing any data.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>byte b = 127;
+int i = b;
+</code></pre></div></div>
+
+<p>However, to cast a larger type into a smaller type, you have to write the type you want to convert it to. For example, if you have an <code class="highlighter-rouge">int</code> (4 byte) and you want to convert it to a byte (1 byte), then there is a possibility that the number might not fit into the byte. Therefore, Java forces you to say, yes, I understand I might lose some data, convert it anyway.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int i = 129;
+byte b = (byte)i; // casting from 4 bytes into 1 byte
+// b becomes -127 because the maximum number a byte can be is 127
+</code></pre></div></div>
+
+<h2 id="decimal-types">Decimal Types</h2>
+
+<p>Numbers with fractions</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th style="text-align: left">Storage requirements</th>
+      <th style="text-align: left">Range (Inclusive)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>float</td>
+      <td style="text-align: left">4 bytes</td>
+      <td style="text-align: left">Approximately ±3.40282347E+38F (6–7 significant decimal digits)</td>
+    </tr>
+    <tr>
+      <td>double</td>
+      <td style="text-align: left">8 bytes</td>
+      <td style="text-align: left">Approximately ±1.79769313486231570E+308 (15 significant decimal digits)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="casting-1">Casting</h3>
+
+<p>Java can automatically cast integers into float/double.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int i = 2000;
+float f = i;
+</code></pre></div></div>
+
+<p>Because of the loss of precision, to cast from a decimal number into an integer, you have to explicitly say so.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>float f = 3.14f;
+int i = (int)f; //i is 3
+</code></pre></div></div>
+
+<h2 id="char-type">char Type</h2>
+
+<p>The char type is a single character represented by a value enclosed in single quotes. It takes up 2 bytes.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>char a = 'a';
+char capA = 'A';
+char semi = ';';
+char num = '8';
+</code></pre></div></div>
+<p>Note <code class="highlighter-rouge">'8'</code> is NOT the same as the number <code class="highlighter-rouge">8</code> without quotes. One is a char, the other is an int.</p>
+
+<p>You can use a number to represent a character. <code class="highlighter-rouge">A</code> is mapped to the number 65 so you can write it like this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>char numChar = 65; // 'A'
+</code></pre></div></div>
+
+<h2 id="boolean-type">boolean Type</h2>
+
+<p>The boolean type has two values: <span style="color: red">false</span> and <span style="color:green">true</span>.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>boolean t = true;
+boolean f = false;
+</code></pre></div></div>
+
+<p>You can use it to store the result of a comparison because the comparison yields <code class="highlighter-rouge">true</code> or <code class="highlighter-rouge">false</code>.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>boolean a = 1 &gt; 0; // true
+boolean b = 1 &gt; 5; // false
+boolean c = 1 == 1; // true
+boolean d = 1 &gt;= 5; // false
+boolean e = 1 &lt;= 5; // true
+boolean f = 8 == '8'; // false
+</code></pre></div></div>
+
+<h2 id="is-java-a-true-object-oriented-language">Is Java a true object oriented language?</h2>
+
+<p>No, because primitive types are not objects.</p>
+
+<hr />
+
+<h2 id="resources">Resources</h2>
+<ul>
+  <li>Core Java Chapter 3.3</li>
+  <li><a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html">Data types - Oracle</a></li>
+  <li><a href="https://www.youtube.com/watch?v=Xpk67YzOn5w">Understanding Binary</a></li>
+</ul>
+
+<p><img src="https://weneedfun.com/wp-content/uploads/2015/10/Cute-puppy-Pictures-29.jpg" width="70%" /></p>
+
+
+              </div>
+          </div>
+
+          <!-- Sidebar -->
+  <div id="sidebar">
+    <div class="inner">
+      <!-- Menu -->
+        <nav id="menu">
+          <header class="major">
+            <h2>Menu</h2>
+          </header>
+          <ul>
+            <li><a href="index.html">0. Getting started</a></li>
+            <li><a href="01-datatype.html">1. Data Types</a></li>
+            <li><a href="02-variable.html">2. Variable</a></li>
+            <li><a href="03-array.html">3. Array</a></li>
+            <li><a href="04-string.html">4. String</a></li>
+            <li><a href="step4phoenixgenerator.html">4. Phoenix Generator</a></li>
+            <li><a href="step5seed.html">5. Populate the database</a></li>
+            <li><a href="step5seedanswer.html">5. Populate the database answer</a></li>
+            <li><a href="step6usersignin.html">6. Add Member Signup</a></li>
+            <li><a href="step7userprofiles.html">7. Add User Profiles</a></li>
+            <li><a href="step8agenda.html">8. Add agenda</a></li>
+            <li><a href="step9deploy.html">9. Deploy</a></li>
+            <li><a href="step10bonus.html">10. Bonus exercise</a></li>
+          </ul>
+        </nav>
+
+      <!-- Footer -->
+        <footer id="footer">
+          <p class="copyright">&copy; Phoenix Basics. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>. Jekyll integration: <a href="https://andrewbanchi.ch">Andrew Banchich</a>.</p>
+        </footer>
+
+    </div>
+  </div>
+
+
+      </div>
+
+      <!-- Scripts -->
+  <script src="http://localhost:9000/assets/js/jquery.min.js"></script>
+  <script src="http://localhost:9000/assets/js/skel.min.js"></script>
+  <script src="http://localhost:9000/assets/js/util.js"></script>
+  <!--[if lte IE 8]><script src="http://localhost:9000/assets/js/ie/respond.min.js"></script><![endif]-->
+  <script src="http://localhost:9000/assets/js/main.js"></script>
+
+
+</body>
+
+</html>
