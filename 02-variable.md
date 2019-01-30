@@ -77,3 +77,9 @@ If you need to update the value, then don't put the type at the beginning.
 int x = 16;
 x = 17;
 ```
+
+## Naming
+
+Variable name should start with lower case. Each word after the first word should be capitalized with no space in between. For example, if you have an odd number, then the variable name is `int oddNumber`.
+
+TODO add more to naming

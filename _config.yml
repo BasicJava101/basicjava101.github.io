@@ -1,8 +1,8 @@
 # Site settings
-title: Phoenix Basics
+title: Java Basics
 subtitle:
-email: youremailaddress@gmail.com
-description: A FREE AND FULLY RESPONSIVE SITE TEMPLATE
+email: nhu313@gmail.com
+description: basic Java
 baseurl: "/" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site
 author:

@@ -1,0 +1,500 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+  <title>Phoenix Basics</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <!--[if lte IE 8]><script src="/assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <!--[if lte IE 9]><link rel="stylesheet" href="/assets/css/ie9.css" /><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" href="/assets/css/ie8.css" /><![endif]-->
+</head>
+
+
+<body>
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner">
+              <header id="header">
+                <a href="http://localhost:9000/" class="logo">
+                  <img src="/assets/images/java.png">
+                </a>
+              </header>
+
+                <!-- Content -->
+                <section>
+                	<header class="main">
+                		<h1>String</h1>
+                	</header>
+
+                  
+
+                <p>String is a sequence of characters. Remember the <code class="highlighter-rouge">char</code> type can only hold one character. In order to hold multiple characters, Java has a class named <code class="highlighter-rouge">String</code>. It is a sequence of text. The most common way to create a String is to use double quote. You need a double quote in the beginning of the text and another double quote to end the text. For example:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">String</span> <span class="n">words</span> <span class="o">=</span> <span class="s">"apple is red"</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>The code is saying the text <code class="highlighter-rouge">apple is red</code> is stored in a variable of type String. The variable name is <code class="highlighter-rouge">words</code>.</p>
+
+<p>Here are a few ways to create a new String:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">String</span> <span class="n">empty</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">();</span>
+<span class="n">String</span> <span class="n">empty</span> <span class="o">=</span> <span class="s">""</span><span class="o">;</span>
+
+<span class="n">String</span> <span class="n">oneCharacter</span> <span class="o">=</span> <span class="s">"a"</span><span class="o">;</span>
+
+<span class="n">String</span> <span class="n">word</span> <span class="o">=</span> <span class="s">"apple"</span><span class="o">;</span>
+
+<span class="c1">//to have a double quote in the string, use \</span>
+<span class="n">String</span> <span class="n">phrase</span> <span class="o">=</span> <span class="s">"I'm sorry for what \"I said\" when I was hungry!"</span><span class="o">;</span>
+
+<span class="n">String</span> <span class="n">paragraph</span> <span class="o">=</span> <span class="s">"It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness, it was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of Darkness, it was the spring of hope, it was the winter of despair, we had everything before us, we had nothing before us, we were all going direct to Heaven, we were all going direct the other way – in short, the period was so far like the present period, that some of its noisiest authorities insisted on its being received, for good or for evil, in the superlative degree of comparison only."</span><span class="o">;</span>
+
+</code></pre></div></div>
+
+<h2 id="converting-other-data-type-to-strings">Converting other data type to strings</h2>
+
+<p>There are usually two ways to convert a primitive data type to a String. One way is to use the primitive wrapper class to convert it. Another way is to use <code class="highlighter-rouge">String.valueOf()</code>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//using Integer which is the wrapper class for int</span>
+<span class="n">String</span> <span class="n">number</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="mi">55</span><span class="o">);</span> <span class="c1">// "55"</span>
+<span class="c1">//using String.valueOf</span>
+<span class="n">String</span> <span class="n">number2</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">55</span><span class="o">);</span> <span class="c1">// "55"</span>
+
+<span class="n">String</span> <span class="n">decimal</span> <span class="o">=</span> <span class="n">Double</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="mf">3.14</span><span class="o">);</span> <span class="c1">// "3.14"</span>
+<span class="n">String</span> <span class="n">decimal2</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mf">3.14</span><span class="o">);</span> <span class="c1">// "3.14"</span>
+
+<span class="n">String</span> <span class="n">character</span> <span class="o">=</span> <span class="n">Character</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="sc">'c'</span><span class="o">);</span> <span class="c1">// "c"</span>
+<span class="n">String</span> <span class="n">character2</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="sc">'c'</span><span class="o">);</span> <span class="c1">// "c"</span>
+</code></pre></div></div>
+
+<h2 id="the-string-methods">The String methods</h2>
+<p>String is an object. It has many useful methods to make your life easier.</p>
+
+<h4 id="length">.length()</h4>
+<p><code class="highlighter-rouge">.length()</code> returns the number of characters in the String</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>String fruit = "apple is red";
+fruit.length(); // 12
+</code></pre></div></div>
+
+<p>Note that a space is a character.</p>
+
+<p><code class="highlighter-rouge">|a|p|p|l|e| |i|s| |r|e|d|</code></p>
+
+<p>Note that an empty String is different than a String with a space. An empty String has no character, therefore the length is 0.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>String empty = "";
+empty.length(); // 0
+
+String space = " ";
+space.length(); // 1
+</code></pre></div></div>
+
+<h4 id="charatint-index">.charAt(int index)</h4>
+<p><code class="highlighter-rouge">.charAt(int index)</code> - returns the character at the given index</p>
+
+<p>Internally, the String class has an array to hold the character. Each character is associated with an index. The first character’s index is 0. The second character’s index is 1, and so on.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>a</th>
+      <th>p</th>
+      <th>p</th>
+      <th>l</th>
+      <th>e</th>
+      <th> </th>
+      <th>i</th>
+      <th>s</th>
+      <th> </th>
+      <th>r</th>
+      <th>e</th>
+      <th>d</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+      <td>8</td>
+      <td>9</td>
+      <td>10</td>
+      <td>11</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><code class="highlighter-rouge">charAt</code> will return the character at that index.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>char firstCharacter =  fruit.charAt(0); // ‘a’
+char sixthCharacter = fruit.charAt(5); // ‘ ’
+char lastCharacter = fruit.charAt(fruit.length() - 1); // ‘d’
+char secondToLastChar = fruit.charAt(fruit.length() - 2); // ‘e’
+</code></pre></div></div>
+
+<h4 id="substringint-beginindex">.substring(int beginIndex)</h4>
+<p><code class="highlighter-rouge">.substring(int beginIndex)</code> - returns a part of the string starting from the given index</p>
+
+<p>Remember that each character in a String is associated with an index.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>a</th>
+      <th>p</th>
+      <th>p</th>
+      <th>l</th>
+      <th>e</th>
+      <th> </th>
+      <th>i</th>
+      <th>s</th>
+      <th> </th>
+      <th>r</th>
+      <th>e</th>
+      <th>d</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+      <td>8</td>
+      <td>9</td>
+      <td>10</td>
+      <td>11</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Calling <code class="highlighter-rouge">.substring</code> will return a new String starting from the given index. For example, if we want to get all the characters starting from index 9 we can call <code class="highlighter-rouge">text.substring(9)</code>.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>String fruit = "apple is red";
+
+String color = fruit.substring(9);  // "red"
+</code></pre></div></div>
+
+<h4 id="substringint-beginindex-int-endindex">.substring(int beginIndex, int endIndex)</h4>
+<p><code class="highlighter-rouge">.substring(int beginIndex, int endIndex)</code> - returns a part of the string starting and ending at the given indexes</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>String fruit = "apple is red";
+
+String noun = fruit.substring(0, 5); // "apple"
+String verb = fruit.substring(6, 8); // "is"
+String adjective = fruit.substring(9, fruit.length()); // "red"
+
+</code></pre></div></div>
+
+<h4 id="trim">.trim()</h4>
+<p><code class="highlighter-rouge">.trim()</code> - removes all spaces at the beginning and at the end of the string. It will leave the spaces in between characters.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>String words = "  apple is   ";
+String trimmedWord = words.trim(); // "apple is"
+
+</code></pre></div></div>
+
+<h2 id="string-concatenation">String concatenation</h2>
+<p>To combine two or more strings together, we can use the <code class="highlighter-rouge">+</code> sign</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">"Moana"</span><span class="o">;</span>
+<span class="n">String</span> <span class="n">greeting</span> <span class="o">=</span> <span class="s">"Hello, "</span>
+<span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="n">greeting</span> <span class="o">+</span> <span class="n">name</span><span class="o">;</span> <span class="c1">// "Hello, Moana"</span>
+</code></pre></div></div>
+
+<p>Here are two other ways to concatenate string. These are not as popular because they’re harder to read.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">String</span> <span class="n">greeting2</span> <span class="o">=</span> <span class="s">"Hello, "</span><span class="o">.</span><span class="na">concat</span><span class="o">(</span><span class="n">name</span><span class="o">).</span><span class="na">concat</span><span class="o">(</span><span class="s">"!"</span><span class="o">);</span>
+<span class="n">String</span> <span class="n">greeting3</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">join</span><span class="o">(</span><span class="s">" "</span><span class="o">,</span><span class="s">"Hello,"</span><span class="o">,</span> <span class="n">name</span><span class="o">,</span> <span class="s">"!"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>To concatenate a String with a primitive data, you can also use the <code class="highlighter-rouge">+</code> sign.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">double</span> <span class="n">pi</span> <span class="o">=</span> <span class="mf">3.14</span><span class="o">;</span>
+<span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="s">"Pi is "</span> <span class="o">+</span> <span class="n">pi</span><span class="o">;</span> <span class="c1">// "Pi is 3.14"</span>
+<span class="n">String</span> <span class="n">message2</span> <span class="o">=</span> <span class="n">pi</span> <span class="o">+</span> <span class="s">" is pi"</span><span class="o">;</span> <span class="c1">// "3.14 is pi"</span>
+</code></pre></div></div>
+
+<h2 id="equality">Equality</h2>
+
+<p>To compare if the two Strings are the same, we can use <code class="highlighter-rouge">.equals</code>.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>String fruit1 = "apple";
+String fruit2 = "apple";
+String fruit3 = "Apple";
+
+fruit1.equals(fruit2); // true because they have the same characters
+
+fruit1.equals(fruit3); // false because fruit3 is capitalized
+
+fruit1.equalsIgnoreCase(fruit3); // true because this method doesn't care about capitalization
+</code></pre></div></div>
+
+<h3 id="dont-use--to-test-for-string-equality">Don’t use == to test for String equality</h3>
+
+<p>The <code class="highlighter-rouge">.equals</code> checks if the String have the same value. The <code class="highlighter-rouge">==</code> checks to see if the two objects are literally the same object, which means they will have the same memory address. Think of the memory address like a regular address. It is where the string is located. Take for example, you and I each has our own houses. They are exactly the same. However, we live on different block. The <code class="highlighter-rouge">.equals</code> checks to see if our houses are the same. The <code class="highlighter-rouge">==</code> checks to see if we have the same address. The <code class="highlighter-rouge">==</code> is not reliable, so DON’T USE IT TO COMPARE STRING. Only use the <code class="highlighter-rouge">==</code> to compare primitive data types like numbers.</p>
+
+<p>Here is an example why <code class="highlighter-rouge">==</code> is bad.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>String num = "3";
+String num2 = Integer.toString(3); // this is also a string "3"
+
+num == num2; //returns false because they have different locations
+
+num.equals(num2); // return true because they have the same value
+</code></pre></div></div>
+
+<p>##TODO</p>
+
+<h2 id="empty-vs-null">Empty vs Null</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>String name = null;
+System.out.println("My name is " + name); // "My name is null"
+name.length(); // ERROR!!!!!
+
+
+String name2 = "";
+System.out.println("My name is " + name2); // "My name is "
+name2.length(); // 0
+</code></pre></div></div>
+
+<h2 id="checking-if-there-is-a-value">Checking if there is a value</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public static boolean hasValue(String value) {
+    if (value != null &amp;&amp; value.trim().length() &gt; 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+System.out.println(hasValue(null)); //false
+System.out.println(hasValue("")); //false
+System.out.println(hasValue("   ")); //false
+System.out.println(hasValue("a")); //true
+</code></pre></div></div>
+
+<h2 id="strings-are-immutable">Strings are immutable</h2>
+
+<ul>
+  <li>Once created, they cannot be changed</li>
+  <li>Methods that change a string return a new string (unless nothing was changed)</li>
+</ul>
+
+<h2 id="string-operations">String operations</h2>
+
+<ul>
+  <li><code class="highlighter-rouge">+</code> - String concatenation</li>
+  <li><code class="highlighter-rouge">length()</code></li>
+  <li><code class="highlighter-rouge">charAt()</code></li>
+  <li><code class="highlighter-rouge">toCharArray()</code></li>
+  <li><code class="highlighter-rouge">equals()</code>, <code class="highlighter-rouge">equalsIgnoreCase()</code></li>
+  <li><code class="highlighter-rouge">compareTo()</code></li>
+  <li><code class="highlighter-rouge">contains()</code>, <code class="highlighter-rouge">startsWith()</code>, <code class="highlighter-rouge">endsWith()</code></li>
+  <li><code class="highlighter-rouge">indexOf()</code>, <code class="highlighter-rouge">lastIndexOf()</code></li>
+  <li><code class="highlighter-rouge">toLowerCase()</code>, <code class="highlighter-rouge">toUpperCase()</code></li>
+  <li><code class="highlighter-rouge">replace()</code>, <code class="highlighter-rouge">replaceAll()</code>, <code class="highlighter-rouge">replaceFirst()</code></li>
+  <li><code class="highlighter-rouge">split()</code>, <code class="highlighter-rouge">trim()</code>, <code class="highlighter-rouge">join()</code></li>
+</ul>
+
+<p>Read <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String API</a> for more methods</p>
+
+<h2 id="string-formatting">String Formatting</h2>
+
+<p>When we display money, we often want it to</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>double total = 10.00 - 9.33;
+System.out.println(total); //0.6699999999999999
+</code></pre></div></div>
+
+<p>-</p>
+<h2 id="string-formatting-1">String Formatting</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>double total = 10.00 - 9.33;
+
+String formattedTotal = String.format("Total is %,15.2f", total);
+System.out.println(formattedTotal); //Total is            0.67
+</code></pre></div></div>
+
+<p>-</p>
+<h2 id="string-formatting-2">String Formatting</h2>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"%[argument_index$][flags][min width][.precision]conversion"
+</code></pre></div></div>
+<p>The only field that is required is conversion</p>
+
+<ul>
+  <li><code class="highlighter-rouge">argument_index</code> - an integer indicating the position of the argument. The first argument is referenced by “1$”, the second by “2$”, etc.</li>
+  <li><code class="highlighter-rouge">flags</code> - modifies output like left justify, 0 padded</li>
+  <li><code class="highlighter-rouge">width</code> - the minimum number of characters</li>
+  <li><code class="highlighter-rouge">conversion</code> - indicates how the argument should be formatted</li>
+</ul>
+
+<h2 id="how-to-format-string"><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Formatter.html#syntax">How to format String</a></h2>
+<h2 id="string-formatting-3">String Formatting</h2>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"%[argument_index$][flags][min width][.precision]conversion"
+</code></pre></div></div>
+<p>| Specifier |	Applies to | Output|
+| ——— | ——– | —– |
+| %b | Any type | <code class="highlighter-rouge">true</code> if non-null, <code class="highlighter-rouge">false</code> if null |
+| %c | character | character |
+| %s | any type | String value |</p>
+
+<p>-</p>
+<h2 id="string-formatting-4">String Formatting</h2>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"%[argument number] [flags][width].[precision][type]"
+</code></pre></div></div>
+<p>| Specifier |	Applies to | Output|
+| ——— | ——– | —– |
+| %d | integer (incl. byte, short, int, long, bigint) | Decimal Integer |
+| %e | floating point | decimal number in scientific notation |
+| %f | floating point | decimal number |</p>
+
+<p><code class="highlighter-rouge">String format = "Total is %,15.2f"</code></p>
+
+<p>Pads with space, group with comma, with minimum with of 15 and precision of 2. Conversion type is float.</p>
+
+<p>-</p>
+<h2 id="ways-to-format">Ways to format</h2>
+
+<ul>
+  <li>Formatter()</li>
+  <li>String.format()</li>
+  <li>NumberFormat</li>
+  <li>System.out.format()</li>
+  <li>System.out.printf</li>
+</ul>
+
+<h2 id="-">-</h2>
+<h2 id="codepoint">Codepoint</h2>
+<p>Once upon a time, there was ASCII. It assigns codes between 0 and 127 to all English letters, the decimal digits, and many symbols.</p>
+
+<p>-</p>
+<h2 id="codepoint-1">Codepoint</h2>
+<p>But what about Russian, Japanese, and Chinese characters?</p>
+
+<p>-</p>
+<h2 id="codepoint-2">Codepoint</h2>
+<p>Unicode to the rescue!</p>
+
+<p>It assigns each character in all of the writing systems ever devised a unique 16-bit code between 0 and 65535.</p>
+
+<p>When you see this it will usually be in hexidecimal from 0x0000 to 0xFFFF but Java supports encoding up to 0x10FFFF</p>
+
+<p>-</p>
+<h2 id="codepoint-3">Codepoint</h2>
+<p>Unicode in Java</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>String symbol = "\ud835\udd46"; // 𝕆
+symbol.length(); // 2
+symbol.codePointCount(0, symbol.length()); // 1
+</code></pre></div></div>
+<p><a href="https://en.wikipedia.org/wiki/List_of_Unicode_characters">List of Unicode character</a></p>
+
+<h2 id="--1">-</h2>
+<h2 id="building-strings">Building Strings</h2>
+
+<p>Using the StringBuilder class allows you to build a string from many small pieces.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>StringBuilder builder = new StringBuilder("ap");
+
+builder.append('p'); // appends a single character
+builder.append("le"); // appends a string
+
+String completedString = builder.toString(); // "apple"
+</code></pre></div></div>
+<p><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/StringBuilder.html">StringBuilder API</a></p>
+
+<p>-</p>
+<h2 id="building-strings-1">Building Strings</h2>
+
+<ul>
+  <li>Use <code class="highlighter-rouge">+</code> to concatenate a small set of string.</li>
+  <li>Use StringBuilder for large or unknown number of string
+    <ul>
+      <li>Ex: for loop, or reading a file</li>
+    </ul>
+  </li>
+</ul>
+
+<p>-</p>
+<h2 id="building-strings-2">Building Strings</h2>
+
+<h3 id="demo">DEMO!!!</h3>
+<p>Remove vowel from words</p>
+
+<p>-</p>
+<h2 id="lab">Lab</h2>
+
+<h2 id="leons-loopy-lab"><a href="https://git.zipcode.rocks/ZipCodeWilmington/CR-MicroLabs-Loops-NumbersTrianglesTables">Leon’s Loopy Lab</a></h2>
+<p><img src="https://i.pinimg.com/736x/2c/ac/ae/2cacae63626e91d6887608bf51217907.jpg" /></p>
+
+
+              </div>
+          </div>
+
+          <!-- Sidebar -->
+  <div id="sidebar">
+    <div class="inner">
+      <!-- Menu -->
+        <nav id="menu">
+          <header class="major">
+            <h2>Menu</h2>
+          </header>
+          <ul>
+            <li><a href="index.html">0. Getting started</a></li>
+            <li><a href="01-datatype.html">1. Data Types</a></li>
+            <li><a href="02-variable.html">2. Variable</a></li>
+            <li><a href="03-math-operations.html">3. Math Operations</a></li>
+            <li><a href="04-class-method.html">4. Class & Method</a></li>
+            <li><a href="04-class-method.html">. Object</a></li>
+            <li><a href="04-class-method.html">. Wrapper Class</a></li>
+            <li><a href="0-string.html">. String</a></li>
+            <li><a href="0-array.html">. Array</a></li>
+            <li><a href="0-for-loop.html">. For Loop</a></li>
+            <li><a href="0-while-loop.html">. While Loop</a></li>
+          </ul>
+        </nav>
+
+      <!-- Footer -->
+        <footer id="footer">
+          <p class="copyright">&copy; Phoenix Basics. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>. Jekyll integration: <a href="https://andrewbanchi.ch">Andrew Banchich</a>.</p>
+        </footer>
+
+    </div>
+  </div>
+
+
+      </div>
+
+      <!-- Scripts -->
+  <script src="http://localhost:9000/assets/js/jquery.min.js"></script>
+  <script src="http://localhost:9000/assets/js/skel.min.js"></script>
+  <script src="http://localhost:9000/assets/js/util.js"></script>
+  <!--[if lte IE 8]><script src="http://localhost:9000/assets/js/ie/respond.min.js"></script><![endif]-->
+  <script src="http://localhost:9000/assets/js/main.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+  <title>Phoenix Basics</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <!--[if lte IE 8]><script src="/assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <!--[if lte IE 9]><link rel="stylesheet" href="/assets/css/ie9.css" /><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" href="/assets/css/ie8.css" /><![endif]-->
+</head>
+
+
+<body>
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner">
+              <header id="header">
+                <a href="http://localhost:9000/" class="logo">
+                  <img src="/assets/images/java.png">
+                </a>
+              </header>
+
+                <!-- Content -->
+                <section>
+                	<header class="main">
+                		<h1>Array</h1>
+                	</header>
+
+                  
+
+                <p>An array is an ordered collection of the same type. Let’s say you want to store the temperature for the week. Instead of making 7 variables for 7 days, you can store it in one variable of the type double array.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>double[] temperatures = {18.1, 9.5, 13.4, 10.1, 14.2, 22.4, 17.9};
+</code></pre></div></div>
+
+<p>There are two ways to create an array. If you know the values, you can use curly braces.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int[] numbers = {5, 1, 30, 1};
+
+//same as above
+int[] numbers2 = new int[]{5, 1, 30, 1};
+</code></pre></div></div>
+
+<p>If you don’t know the value, you can create an empty array with a specific size. You have to know the size when you create an array. An empty array is an array with no value. If it is number array, then all the values will be 0. If it is a boolean array, then all the values will be false.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//this will give you an array of size 3
+boolean[] conditions = new boolean[3]; // {false, false, false}
+</code></pre></div></div>
+
+<p>To create an array with a given size, you need to say <code class="highlighter-rouge">new</code> and specify a type and the <code class="highlighter-rouge">[]</code>. Here’s the format:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DataType[] variableName = new DataType[size];
+</code></pre></div></div>
+
+<p>Notice to store the array in a variable, you also need to specify a type and <code class="highlighter-rouge">[]</code>. In general, whenever you see <code class="highlighter-rouge">[]</code> you know you’re dealing with an array.</p>
+
+<h3 id="array-index">Array index</h3>
+<p>A value is called an element in an array. Each element in an array is associated with an index, which specify what position it is at. The index starts at 0 so the first element is at index 0, the second element is at index 1, and so on. For example, here’s a character array.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>char[] fruit = {'a', 'p', 'p', 'l', 'e'};
+</code></pre></div></div>
+
+<p>Here are the index associated with each character.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>a</th>
+      <th>p</th>
+      <th>p</th>
+      <th>l</th>
+      <th>e</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="get-an-element">Get an element</h4>
+
+<p>To get a character at a certain position, you use the <code class="highlighter-rouge">[index]</code>.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>char[] fruit = {'a', 'p', 'p', 'l', 'e'};
+
+//get the first character
+char first = fruit[0];
+
+//get the second character
+char second = fruit[1];
+
+//get the fifth character
+char fifth = fruit[4];
+</code></pre></div></div>
+
+<h4 id="updateset-element">Update/set element</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>char[] animal = new char[3];
+
+//set the first character
+animal[0] = 'c';
+
+//set the second character
+animal[1] = 'a';
+
+//set the third character
+animal[1] = 't';
+
+</code></pre></div></div>
+
+<h4 id="length">.length</h4>
+
+<p>To see how many elements there are in the array, you can use <code class="highlighter-rouge">.length</code>.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>char[] fruit = {'a', 'p', 'p', 'l', 'e'};
+
+fruit.length; // 5
+</code></pre></div></div>
+
+<p>Notice that the last index is actually one less than the size. This is because the index starts at 0. So to get the last element in an array, you can do this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>char[] fruit = {'a', 'p', 'p', 'l', 'e'};
+
+char lastChar = fruit[fruit.length - 1];
+</code></pre></div></div>
+
+<h3 id="lengthsize">Length/Size</h3>
+
+<p>Once you create an array, you cannot change its size. For example, if you have an array of size 4. If you want to add in another element, you have to create a new array of size 5. then copy the value over.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span><span class="o">[]</span> <span class="n">numbers</span> <span class="o">=</span> <span class="o">{</span><span class="mi">5</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span> <span class="mi">30</span><span class="o">,</span> <span class="mi">1</span><span class="o">};</span>
+
+<span class="kt">int</span><span class="o">[]</span> <span class="n">newNumbers</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">numbers</span><span class="o">.</span><span class="na">length</span> <span class="o">+</span> <span class="mi">1</span><span class="o">];</span>
+
+<span class="c1">//code to copy array</span>
+<span class="n">System</span><span class="o">.</span><span class="na">arraycopy</span><span class="o">(</span><span class="n">numbers</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">newNumbers</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">numbers</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+
+<span class="c1">//add the new element</span>
+<span class="n">newNumbers</span><span class="o">[</span><span class="n">newNumbers</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="mi">1</span><span class="o">]</span> <span class="o">=</span> <span class="mi">193</span><span class="o">;</span>
+</code></pre></div></div>
+
+<h2 id="copy">Copy</h2>
+
+<p>This is the easiest way to create a copy of an array.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span><span class="o">[]</span> <span class="n">numbers</span> <span class="o">=</span> <span class="o">{</span><span class="mi">5</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span> <span class="mi">30</span><span class="o">,</span> <span class="mi">1</span><span class="o">};</span>
+<span class="kt">int</span><span class="o">[]</span> <span class="n">copiedLuckyNumbers</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">copyOf</span><span class="o">(</span><span class="n">numbers</span><span class="o">,</span> <span class="n">numbers</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>If you need to add another number, you can change the length</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span><span class="o">[]</span> <span class="n">copiedLuckyNumbers</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">copyOf</span><span class="o">(</span><span class="n">numbers</span><span class="o">,</span> <span class="n">numbers</span><span class="o">.</span><span class="na">length</span> <span class="o">+</span> <span class="mi">1</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h2 id="sort">Sort</h2>
+
+<p>To sort an array, use <code class="highlighter-rouge">Arrays.sort</code></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span><span class="o">[]</span> <span class="n">numbers</span> <span class="o">=</span> <span class="o">{</span><span class="mi">5</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span> <span class="mi">30</span><span class="o">,</span> <span class="mi">1</span><span class="o">};</span>
+<span class="n">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">numbers</span><span class="o">);</span> <span class="c1">// {1, 1, 5, 30}</span>
+</code></pre></div></div>
+
+<h2 id="printing-array-elements">Printing array elements</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span><span class="o">[]</span> <span class="n">numbers</span> <span class="o">=</span> <span class="o">{</span><span class="mi">5</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span> <span class="mi">30</span><span class="o">,</span> <span class="mi">1</span><span class="o">};</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">numbers</span><span class="o">));</span>
+</code></pre></div></div>
+
+<h2 id="todo-multi-dimensional-array">TODO multi dimensional array</h2>
+
+<h2 id="resources">Resources</h2>
+<p>https://docs.oracle.com/javase/7/docs/api/java/util/Arrays.html
+https://docs.oracle.com/javase/tutorial/java/nutsandbolts/arrays.html
+http://yfain.github.io/Java4Kids/#_creating_your_first_project</p>
+
+
+              </div>
+          </div>
+
+          <!-- Sidebar -->
+  <div id="sidebar">
+    <div class="inner">
+      <!-- Menu -->
+        <nav id="menu">
+          <header class="major">
+            <h2>Menu</h2>
+          </header>
+          <ul>
+            <li><a href="index.html">0. Getting started</a></li>
+            <li><a href="01-datatype.html">1. Data Types</a></li>
+            <li><a href="02-variable.html">2. Variable</a></li>
+            <li><a href="03-math-operations.html">3. Math Operations</a></li>
+            <li><a href="04-class-method.html">4. Class & Method</a></li>
+            <li><a href="04-class-method.html">. Object</a></li>
+            <li><a href="04-class-method.html">. Wrapper Class</a></li>
+            <li><a href="0-string.html">. String</a></li>
+            <li><a href="0-array.html">. Array</a></li>
+            <li><a href="0-for-loop.html">. For Loop</a></li>
+            <li><a href="0-while-loop.html">. While Loop</a></li>
+          </ul>
+        </nav>
+
+      <!-- Footer -->
+        <footer id="footer">
+          <p class="copyright">&copy; Phoenix Basics. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>. Jekyll integration: <a href="https://andrewbanchi.ch">Andrew Banchich</a>.</p>
+        </footer>
+
+    </div>
+  </div>
+
+
+      </div>
+
+      <!-- Scripts -->
+  <script src="http://localhost:9000/assets/js/jquery.min.js"></script>
+  <script src="http://localhost:9000/assets/js/skel.min.js"></script>
+  <script src="http://localhost:9000/assets/js/util.js"></script>
+  <!--[if lte IE 8]><script src="http://localhost:9000/assets/js/ie/respond.min.js"></script><![endif]-->
+  <script src="http://localhost:9000/assets/js/main.js"></script>
+
+
+</body>
+
+</html>
