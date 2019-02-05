@@ -1,0 +1,316 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+  <title>Java Basics</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <!--[if lte IE 8]><script src="/assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <!--[if lte IE 9]><link rel="stylesheet" href="/assets/css/ie9.css" /><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" href="/assets/css/ie8.css" /><![endif]-->
+</head>
+
+
+<body>
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner">
+              <header id="header">
+                <a href="http://localhost:9000/" class="logo">
+                  <img src="/assets/images/java.png">
+                </a>
+              </header>
+
+                <!-- Content -->
+                <section>
+                	<header class="main">
+                		<h1>For Loop</h1>
+                	</header>
+
+                  
+
+                <p>When you need to do something over and over again, you can often use a loop for it. For example, here’s the code to print out from 1 to 5</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="mi">4</span><span class="o">);</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span>
+
+</code></pre></div></div>
+
+<p>Note the only thing that change is the number. Let’s try to extract the thing that change and format the code so every print statement look the same.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//extract the thing that change</span>
+<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="c1">// 1</span>
+
+<span class="c1">//make the code so the print statement look the same</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+<span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span> <span class="c1">// 2</span>
+
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+<span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span> <span class="c1">// 3</span>
+
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+<span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span> <span class="c1">// 4</span>
+
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+<span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span> <span class="c1">// 5</span>
+
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>You can use a while loop to do this, but we’re trying to learn how to use a for loop, so let’s do that. A for loop needs three parts:</p>
+
+<ol>
+  <li>initialization - where do you want to start. For us, we want to start at 1.</li>
+  <li>condition - this condition should say do this loop as long as this condition is true. The loop will stop as soon as it’s false.</li>
+  <li>update statement - what to do after every iteration</li>
+</ol>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span><span class="o">(</span><span class="n">initialization</span><span class="o">;</span> <span class="n">condition</span><span class="o">;</span> <span class="n">update</span> <span class="n">statement</span><span class="o">)</span> <span class="o">{</span>
+
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<p>For our code, here are our three parts:</p>
+
+<ol>
+  <li>initialization - we need to start at 1, so our initialize statement is <code class="highlighter-rouge">int i = 1;</code></li>
+  <li>condition - we need to run the loop as long as i is less than or equal to 5 <code class="highlighter-rouge">i &lt;= 5</code></li>
+  <li>update statement - after every iteration, add one to i <code class="highlighter-rouge">i = i + 1</code></li>
+</ol>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">number</span> <span class="o">=</span> <span class="mi">5</span><span class="o">;</span>
+
+<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="o">;</span> <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Note how nice and clean it is. The code that needs to repeat is in the <code class="highlighter-rouge">{}</code> of the for loop.</p>
+
+<p><strong>Pro tip:</strong> <code class="highlighter-rouge">i = i + 1</code> can be written as <code class="highlighter-rouge">i++</code></p>
+
+<p>This is what the condense update statement loops like in the for loop.</p>
+
+<p>Let’s go through a few example</p>
+
+<h2 id="nested-for-loop">Nested for loop</h2>
+
+<p>Let’s say if you want to print <code class="highlighter-rouge">*</code> 10 times. Here’s the code for it.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"*"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>This is the result.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>**********
+</code></pre></div></div>
+
+<p>Notice I wanted to repeat the code 10 times. I started with i as 0. This is the common practice because it makes it easier to deal with array. Because I started with 0, instead of saying i is less than or equal to 10, I say do this as long as i is less than 10 <code class="highlighter-rouge">i &lt; 10</code>. This means it will 0, 1, 2, 3, 4, 5, 6, 7, 8, and 9 which is ten times.</p>
+
+<p>Let’s build a rectangle of stars. For example, if the size is 2, then this is the result:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>**
+**
+</code></pre></div></div>
+
+<p>Note that if it is size 2, then I have to two rows and each rows has two stars. If the size is 3, then this is the result:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>***
+***
+***
+</code></pre></div></div>
+
+<p>Ok, now we know what it looks like. Let’s make a method for it.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">printRectangle</span><span class="o">(</span><span class="kt">int</span> <span class="n">size</span><span class="o">)</span> <span class="o">{</span>
+
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<p>Remember we know how to make one line of star. Let’s do that first.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">printOneRowOfStars</span><span class="o">(</span><span class="kt">int</span> <span class="n">size</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"*"</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Note we need to make n rows of stars for a rectangle of size n. So we need another for loop to make the row.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">printRectangle</span><span class="o">(</span><span class="kt">int</span> <span class="n">size</span><span class="o">)</span> <span class="o">{</span>
+  <span class="c1">//loop to make the row</span>
+  <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+
+    <span class="c1">//call method to print stars</span>
+    <span class="n">printOneRowOfStars</span><span class="o">(</span><span class="n">size</span><span class="o">);</span>
+
+    <span class="c1">//print new line after every row of stars</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="sc">'\n'</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Let’s put it together:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">printRectangle</span><span class="o">(</span><span class="kt">int</span> <span class="n">size</span><span class="o">)</span> <span class="o">{</span>
+  <span class="c1">//loop to make the row</span>
+  <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+
+    <span class="c1">//loop to print the stars</span>
+    <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">size</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"*"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="c1">//print new line after every row of stars</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="sc">'\n'</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>This code is the same code as the above. Instead of calling another to print the star, we pulled the code together so it’s done in one method. Both code will do the same thing. It is up to you which method you prefer. I prefer the first method because I find the first method easier to read.</p>
+
+<h2 id="collecting-result">Collecting result</h2>
+
+<p>Let’s say we want to calculate the factorial of a number. A factorial is a the product of all positive integers less than or equal to the number. For example, the factorial of 5 is <code class="highlighter-rouge">1 x 2 x 3 x 4 x 5</code>. Here’s the code to calculate the factorial of 5.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">factorial</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">*</span> <span class="mi">5</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>Let’s say you want to calculate the factorial from a user input instead of a specific number. First, you need to create a method that have one parameter. The parameter is the number you want to find the factorial for.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">int</span> <span class="nf">factorial</span><span class="o">(</span><span class="kt">int</span> <span class="n">number</span><span class="o">)</span> <span class="o">{</span>
+<span class="c1">//code for factorial  </span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Now, how do we translate this code into something more flexible?</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">factorial</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">*</span> <span class="mi">5</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>This is a common pattern. When you need to do an operation for an unknown number of times, you need to have an accumulator (which is something to collect the result). Let’s rewrite the code to something that is repeatable.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// first initialize an accumulator, because this is multiplication you need to initialize it to 1</span>
+<span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+
+<span class="c1">// notice we take result and multiply by the number</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">*</span> <span class="mi">1</span><span class="o">;</span> <span class="c1">// 1 * 1 = 1</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">*</span> <span class="mi">2</span><span class="o">;</span> <span class="c1">// 1 * 2 = 2</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">*</span> <span class="mi">3</span><span class="o">;</span> <span class="c1">// 2 * 3 = 6</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">*</span> <span class="mi">4</span><span class="o">;</span> <span class="c1">// 6 * 4 = 24</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">*</span> <span class="mi">5</span><span class="o">;</span> <span class="c1">// 24 * 5 = 120</span>
+
+<span class="c1">// result is now 120</span>
+</code></pre></div></div>
+
+<p>Again, let’s rewrite this to make it look the same. First, extract out the thing that change. Then increment it after every loop.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// first initialize an accumulator</span>
+<span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+
+<span class="c1">// starts at 1</span>
+<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+
+<span class="c1">//</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">*</span> <span class="n">i</span><span class="o">;</span> <span class="c1">// 1 * 1 = 1</span>
+<span class="n">i</span><span class="o">++;</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">*</span> <span class="n">i</span><span class="o">;</span> <span class="c1">// 1 * 2 = 2</span>
+<span class="n">i</span><span class="o">++;</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">*</span> <span class="n">i</span><span class="o">;</span> <span class="c1">// 2 * 3 = 6</span>
+<span class="n">i</span><span class="o">++;</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">*</span> <span class="n">i</span><span class="o">;</span> <span class="c1">// 6 * 4 = 24</span>
+<span class="n">i</span><span class="o">++;</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">*</span> <span class="n">i</span><span class="o">;</span> <span class="c1">// 24 * 5 = 120</span>
+<span class="n">i</span><span class="o">++;</span>
+
+
+<span class="c1">// result is now 120</span>
+</code></pre></div></div>
+<p>Now we see the thing that repeat, let’s rewrite it in a loop. Here are our loop statements:</p>
+
+<ol>
+  <li>initialization - int i = 1;</li>
+  <li>condition - i &lt;= number</li>
+  <li>update statement - i++ (which is the same as i = i = 1)</li>
+</ol>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">int</span> <span class="nf">factorial</span><span class="o">(</span><span class="kt">int</span> <span class="n">number</span><span class="o">)</span> <span class="o">{</span>
+  <span class="c1">// first initialize an accumulator</span>
+  <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+
+  <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">number</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">*</span> <span class="n">i</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+
+              </div>
+          </div>
+
+          <!-- Sidebar -->
+  <div id="sidebar">
+    <div class="inner">
+      <!-- Menu -->
+        <nav id="menu">
+          <header class="major">
+            <h2>Menu</h2>
+          </header>
+          <ul>
+            <li><a href="index.html">Getting started</a></li>
+            <li><a href="0-comment.html">0. Comments</a></li>
+            <li><a href="01-datatype.html">1. Data Types</a></li>
+            <li><a href="02-variable.html">2. Variable</a></li>
+            <li><a href="03-math-operations.html">3. Math Operations</a></li>
+            <li><a href="04-class-method.html">4. Class & Method</a></li>
+            <li><a href="0-string.html">5. String</a></li>
+            <li><a href="0-array.html">6. Array</a></li>
+            <li><a href="0-while-loop.html">7. While Loop</a></li>
+            <li><a href="0-for-loop.html">8. For Loop</a></li>
+          </ul>
+        </nav>
+
+      <!-- Footer -->
+        <footer id="footer">
+          <p class="copyright">&copy; Java Basics. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>. Jekyll integration: <a href="https://andrewbanchi.ch">Andrew Banchich</a>.</p>
+        </footer>
+
+    </div>
+  </div>
+
+
+      </div>
+
+      <!-- Scripts -->
+  <script src="http://localhost:9000/assets/js/jquery.min.js"></script>
+  <script src="http://localhost:9000/assets/js/skel.min.js"></script>
+  <script src="http://localhost:9000/assets/js/util.js"></script>
+  <!--[if lte IE 8]><script src="http://localhost:9000/assets/js/ie/respond.min.js"></script><![endif]-->
+  <script src="http://localhost:9000/assets/js/main.js"></script>
+
+
+</body>
+
+</html>
