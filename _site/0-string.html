@@ -197,7 +197,7 @@ String color = fruit.substring(9);  // "red"
 </code></pre></div></div>
 
 <h4 id="substringint-beginindex-int-endindex">.substring(int beginIndex, int endIndex)</h4>
-<p><code class="highlighter-rouge">.substring(int beginIndex, int endIndex)</code> - returns a part of the string starting and ending at the given indexes</p>
+<p><code class="highlighter-rouge">.substring(int beginIndex, int endIndex)</code> - returns a part of the string starting and ending at the given indexes. Note it does not include the ending index. For example, if you want the first two characters, you need to say <code class="highlighter-rouge">"apple".substring(0, 2)</code>.</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>String fruit = "apple is red";
 
@@ -265,42 +265,38 @@ num == num2; //returns false because they have different locations
 num.equals(num2); // return true because they have the same value
 </code></pre></div></div>
 
-<p>##TODO</p>
-
 <h2 id="empty-vs-null">Empty vs Null</h2>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>String name = null;
-System.out.println("My name is " + name); // "My name is null"
-name.length(); // ERROR!!!!!
+<p>Null means the object doesn’t exist. Empty means the object exists, but there is nothing in it. For example, you have a glass of water. If the glass is empty, it means there is no water in it. If we say the glass of water is null, it means the glass itself doesn’t exist, therefore you can’t anything with it. If you try to throw the glass away, it will have a <code class="highlighter-rouge">NullPointerException</code> which means you tried to do something to an object that doesn’t exist. Here is a null string. We denote doesn’t exist with <code class="highlighter-rouge">null</code>.</p>
 
-
-String name2 = "";
-System.out.println("My name is " + name2); // "My name is "
-name2.length(); // 0
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
 </code></pre></div></div>
 
-<h2 id="checking-if-there-is-a-value">Checking if there is a value</h2>
+<p>If we try to get the length of the string, it will give us an error because the string doesn’t exist.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public static boolean hasValue(String value) {
-    if (value != null &amp;&amp; value.trim().length() &gt; 0) {
-        return true;
-    } else {
-        return false;
-    }
-}
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+<span class="n">name</span><span class="o">.</span><span class="na">length</span><span class="o">();</span> <span class="c1">// ERROR!!!!!</span>
+</code></pre></div></div>
 
-System.out.println(hasValue(null)); //false
-System.out.println(hasValue("")); //false
-System.out.println(hasValue("   ")); //false
-System.out.println(hasValue("a")); //true
+<p>However, if we have an empty string, then we can operate on it. An empty string is a string with no character.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">""</span><span class="o">;</span> <span class="c1">//empty string</span>
+<span class="n">name</span><span class="o">.</span><span class="na">length</span><span class="o">();</span> <span class="c1">// length is 0</span>
 </code></pre></div></div>
 
 <h2 id="strings-are-immutable">Strings are immutable</h2>
 
-<ul>
-  <li>Once created, they cannot be changed</li>
-  <li>Methods that change a string return a new string (unless nothing was changed)</li>
-</ul>
+<p>Once a String is created, it cannot be changed. This is called immutable. Any operation that can change a string will return a new string. For example, the method <code class="highlighter-rouge">.length()</code> returns the size of the string, therefore it does not change the string. However, <code class="highlighter-rouge">.toLowerCase()</code> means you are changing the string, so it will return a new string.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>String fruit = "Apple";
+String newFruit = fruit.toLowerCase();
+
+// because string is immutable, fruit is not changed
+System.out.println(fruit); // Apple
+
+// to lower case return a new string which is the updated string
+System.out.println(newFruit); // apple
+</code></pre></div></div>
 
 <h2 id="string-operations">String operations</h2>
 
@@ -318,18 +314,17 @@ System.out.println(hasValue("a")); //true
   <li><code class="highlighter-rouge">split()</code>, <code class="highlighter-rouge">trim()</code>, <code class="highlighter-rouge">join()</code></li>
 </ul>
 
-<p>Read <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String API</a> for more methods</p>
+<p>Read <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String API</a> to learn what methods are available.</p>
 
 <h2 id="string-formatting">String Formatting</h2>
 
-<p>When we display money, we often want it to</p>
+<p>When we display money, we often want it to display two decimal points. However, because of the way we store decimal, that is not the case. For example, <code class="highlighter-rouge">10.00 - 9.33</code> doesn’t return the exact number you want.</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>double total = 10.00 - 9.33;
 System.out.println(total); //0.6699999999999999
 </code></pre></div></div>
 
-<p>-</p>
-<h2 id="string-formatting-1">String Formatting</h2>
+<p>That is quite ugly. We can’t show that to the user. We want to format the number into two decimal place. Here’s an example:</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>double total = 10.00 - 9.33;
 
@@ -337,45 +332,73 @@ String formattedTotal = String.format("Total is %,15.2f", total);
 System.out.println(formattedTotal); //Total is            0.67
 </code></pre></div></div>
 
-<p>-</p>
-<h2 id="string-formatting-2">String Formatting</h2>
+<p>Notice we used this obscured looking text inside the string <code class="highlighter-rouge">%,15.2f</code>. That stands for the following:</p>
+
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"%[argument_index$][flags][min width][.precision]conversion"
 </code></pre></div></div>
+
 <p>The only field that is required is conversion</p>
 
 <ul>
   <li><code class="highlighter-rouge">argument_index</code> - an integer indicating the position of the argument. The first argument is referenced by “1$”, the second by “2$”, etc.</li>
   <li><code class="highlighter-rouge">flags</code> - modifies output like left justify, 0 padded</li>
   <li><code class="highlighter-rouge">width</code> - the minimum number of characters</li>
-  <li><code class="highlighter-rouge">conversion</code> - indicates how the argument should be formatted</li>
+  <li><code class="highlighter-rouge">conversion</code> - what type of argument it is. For example. you can use <code class="highlighter-rouge">s</code> for a string or <code class="highlighter-rouge">d</code> for an integer.</li>
 </ul>
 
-<h2 id="how-to-format-string"><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Formatter.html#syntax">How to format String</a></h2>
-<h2 id="string-formatting-3">String Formatting</h2>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"%[argument_index$][flags][min width][.precision]conversion"
+<p>Here are the different type of conversions:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Specifier</th>
+      <th>Applies to</th>
+      <th>Output</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>%b</td>
+      <td>Any type</td>
+      <td><code class="highlighter-rouge">true</code> if non-null, <code class="highlighter-rouge">false</code> if null</td>
+    </tr>
+    <tr>
+      <td>%c</td>
+      <td>character</td>
+      <td>character</td>
+    </tr>
+    <tr>
+      <td>%s</td>
+      <td>any type</td>
+      <td>String value</td>
+    </tr>
+    <tr>
+      <td>%d</td>
+      <td>integer (incl. byte, short, int, long, bigint)</td>
+      <td>Decimal Integer</td>
+    </tr>
+    <tr>
+      <td>%e</td>
+      <td>floating point</td>
+      <td>decimal number in scientific notation</td>
+    </tr>
+    <tr>
+      <td>%f</td>
+      <td>floating point</td>
+      <td>decimal number</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For example, if we want to format a number to have a minimum width of 5, our formatter looks like this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>String.format("%5d", 11);
 </code></pre></div></div>
-<p>| Specifier |	Applies to | Output|
-| ——— | ——– | —– |
-| %b | Any type | <code class="highlighter-rouge">true</code> if non-null, <code class="highlighter-rouge">false</code> if null |
-| %c | character | character |
-| %s | any type | String value |</p>
 
-<p>-</p>
-<h2 id="string-formatting-4">String Formatting</h2>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"%[argument number] [flags][width].[precision][type]"
-</code></pre></div></div>
-<p>| Specifier |	Applies to | Output|
-| ——— | ——– | —– |
-| %d | integer (incl. byte, short, int, long, bigint) | Decimal Integer |
-| %e | floating point | decimal number in scientific notation |
-| %f | floating point | decimal number |</p>
+<p>This says we are formatting a number with a minimum with of 5. If the number is less than 5 then pad it with spaces.</p>
 
-<p><code class="highlighter-rouge">String format = "Total is %,15.2f"</code></p>
-
-<p>Pads with space, group with comma, with minimum with of 15 and precision of 2. Conversion type is float.</p>
-
-<p>-</p>
-<h2 id="ways-to-format">Ways to format</h2>
+<h3 id="ways-to-format">Ways to format</h3>
+<p>Here are the different ways to format a number.</p>
 
 <ul>
   <li>Formatter()</li>
@@ -385,68 +408,18 @@ System.out.println(formattedTotal); //Total is            0.67
   <li>System.out.printf</li>
 </ul>
 
-<h2 id="-">-</h2>
+<p>More details on String formatting: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Formatter.html#syntax">How to format String</a></p>
+
 <h2 id="codepoint">Codepoint</h2>
-<p>Once upon a time, there was ASCII. It assigns codes between 0 and 127 to all English letters, the decimal digits, and many symbols.</p>
-
-<p>-</p>
-<h2 id="codepoint-1">Codepoint</h2>
-<p>But what about Russian, Japanese, and Chinese characters?</p>
-
-<p>-</p>
-<h2 id="codepoint-2">Codepoint</h2>
-<p>Unicode to the rescue!</p>
-
-<p>It assigns each character in all of the writing systems ever devised a unique 16-bit code between 0 and 65535.</p>
-
-<p>When you see this it will usually be in hexidecimal from 0x0000 to 0xFFFF but Java supports encoding up to 0x10FFFF</p>
-
-<p>-</p>
-<h2 id="codepoint-3">Codepoint</h2>
-<p>Unicode in Java</p>
+<p>Once upon a time, there was ASCII. It assigns codes between 0 and 127 to all English letters, the decimal digits, and many symbols. Unfortunately, that doesn’t cover all the character in the world so they invited unicode. It assigns each character in all of the writing systems ever devised a unique 16-bit code between 0 and 65535. When you see this it will usually be in hexidecimal from 0x0000 to 0xFFFF but Java supports encoding up to 0x10FFFF</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>String symbol = "\ud835\udd46"; // 𝕆
 symbol.length(); // 2
 symbol.codePointCount(0, symbol.length()); // 1
 </code></pre></div></div>
+
 <p><a href="https://en.wikipedia.org/wiki/List_of_Unicode_characters">List of Unicode character</a></p>
 
-<h2 id="--1">-</h2>
-<h2 id="building-strings">Building Strings</h2>
-
-<p>Using the StringBuilder class allows you to build a string from many small pieces.</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>StringBuilder builder = new StringBuilder("ap");
-
-builder.append('p'); // appends a single character
-builder.append("le"); // appends a string
-
-String completedString = builder.toString(); // "apple"
-</code></pre></div></div>
-<p><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/StringBuilder.html">StringBuilder API</a></p>
-
-<p>-</p>
-<h2 id="building-strings-1">Building Strings</h2>
-
-<ul>
-  <li>Use <code class="highlighter-rouge">+</code> to concatenate a small set of string.</li>
-  <li>Use StringBuilder for large or unknown number of string
-    <ul>
-      <li>Ex: for loop, or reading a file</li>
-    </ul>
-  </li>
-</ul>
-
-<p>-</p>
-<h2 id="building-strings-2">Building Strings</h2>
-
-<h3 id="demo">DEMO!!!</h3>
-<p>Remove vowel from words</p>
-
-<p>-</p>
-<h2 id="lab">Lab</h2>
-
-<h2 id="leons-loopy-lab"><a href="https://git.zipcode.rocks/ZipCodeWilmington/CR-MicroLabs-Loops-NumbersTrianglesTables">Leon’s Loopy Lab</a></h2>
 <p><img src="https://i.pinimg.com/736x/2c/ac/ae/2cacae63626e91d6887608bf51217907.jpg" /></p>
 
 
@@ -472,6 +445,7 @@ String completedString = builder.toString(); // "apple"
             <li><a href="0-array.html">6. Array</a></li>
             <li><a href="0-while-loop.html">7. While Loop</a></li>
             <li><a href="0-for-loop.html">8. For Loop</a></li>
+            <li><a href="0-if-switch.html">9. If & Switch</a></li>
           </ul>
         </nav>
 

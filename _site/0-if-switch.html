@@ -1,0 +1,249 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+  <title>Java Basics</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <!--[if lte IE 8]><script src="/assets/js/ie/html5shiv.js"></script><![endif]-->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <!--[if lte IE 9]><link rel="stylesheet" href="/assets/css/ie9.css" /><![endif]-->
+  <!--[if lte IE 8]><link rel="stylesheet" href="/assets/css/ie8.css" /><![endif]-->
+</head>
+
+
+<body>
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner">
+              <header id="header">
+                <a href="http://localhost:9000/" class="logo">
+                  <img src="/assets/images/java.png">
+                </a>
+              </header>
+
+                <!-- Content -->
+                <section>
+                	<header class="main">
+                		<h1>If & Switch</h1>
+                	</header>
+
+                  
+
+                <p>There are times when you want to do something only when a certain condition is true. In this case, you need to use a <code class="highlighter-rouge">if</code> statement.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">age</span> <span class="o">=</span> <span class="mi">18</span><span class="o">;</span>
+
+<span class="c1">// only print out this statement if the person age is greater than or equal to 18</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">age</span> <span class="o">&gt;=</span> <span class="mi">18</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"You're an adult."</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Pay the bills!😆"</span><span class="o">);</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<p>The format for an if statement is this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">(</span><span class="n">condition</span> <span class="n">that</span> <span class="k">return</span> <span class="n">a</span> <span class="kt">boolean</span><span class="o">)</span> <span class="o">{</span>
+  <span class="c1">//code you want to do if condition is true</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>It doesn’t always have to be a comparison statement. As long as what is in the parenthesis is a boolean.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">boolean</span> <span class="n">isStudent</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+
+<span class="k">if</span> <span class="o">(</span><span class="n">isStudent</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Do your labs!😆"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>You can use a bang sign (exclamation point !) to test a false condition. For example, if we only have the variable <code class="highlighter-rouge">isStudent</code>, but we want to say, if NOT student, then we can use the <code class="highlighter-rouge">!</code> sign.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">boolean</span> <span class="n">isStudent</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+
+<span class="c1">//note the ! which states if NOT student</span>
+<span class="k">if</span> <span class="o">(!</span><span class="n">isStudent</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Take a vacation! 🌴"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="else">Else</h2>
+
+<p>There are times when you want to say, if this is true, then do this, otherwise, do this other thing. When you need an if or else situation like that, you need an <code class="highlighter-rouge">if-else</code> statement.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">age</span> <span class="o">=</span> <span class="mi">17</span><span class="o">;</span>
+
+<span class="k">if</span> <span class="o">(</span><span class="n">age</span> <span class="o">&gt;=</span> <span class="mi">18</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// only print out this statement if the person age is greater than or equal to 18</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"You're an adult."</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Pay the bills!😆"</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+    <span class="c1">// otherwise, print this statement</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Here's some allowance!🤑"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The allowance statement will only print out if the age is less than 18. If you have only two situation where it is if this, otherwise that, then use this statement. The format is this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">(</span><span class="n">condition</span> <span class="n">that</span> <span class="k">return</span> <span class="n">a</span> <span class="kt">boolean</span><span class="o">)</span> <span class="o">{</span>
+  <span class="c1">//code you want to do if condition is true</span>
+<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+  <span class="c1">// code for when condition is false</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="else-if">Else If</h2>
+
+<p>If you have a case when there is two condition, then you can use <code class="highlighter-rouge">else if</code>. For example, if the person age is 18 or greater, you want the person to pay the bills. If the person is less then 18, then you want to give them allowance. But a baby/toddler doesn’t need allowance, so you want to say, if the person is &gt;= 18, pay the bills. If the person is older than 5, then they get an allowance.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">age</span> <span class="o">=</span> <span class="mi">17</span><span class="o">;</span>
+
+<span class="k">if</span> <span class="o">(</span><span class="n">age</span> <span class="o">&gt;=</span> <span class="mi">18</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// only print out this statement if the person age is greater than or equal to 18</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"You're an adult."</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Pay the bills!😆"</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="n">age</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// only print this if the person age is greater than 5 but less than 18.</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Here's some allowance!🤑"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Notice that if age is 5 or younger, then it doesn’t print out anything. Unlike the <code class="highlighter-rouge">else</code> statement which executes when the condition is false. The <code class="highlighter-rouge">else if</code> statement only execute if the second condition is true. Because the if statement executes first, thus when it gets to the <code class="highlighter-rouge">else if</code> statement, it will never be 18+.</p>
+
+<p>We can combine the if, else if, and else statement together.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">age</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+
+<span class="k">if</span> <span class="o">(</span><span class="n">age</span> <span class="o">&gt;=</span> <span class="mi">18</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// only print out this statement if the person age is greater than or equal to 18</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"You're an adult."</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Pay the bills!😆"</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="n">age</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// only print this if the person age is greater than 5 but less than 18.</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Here's some allowance!🤑"</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+    <span class="c1">// if the other two condition is false, then execute this</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"You're a baby! Here are some candies 🍫"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>You can have multiple <code class="highlighter-rouge">else if</code> condition, but you can only have one else statement. Here’s an example:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">age</span> <span class="o">=</span> <span class="mi">23</span><span class="o">;</span>
+
+<span class="k">if</span> <span class="o">(</span><span class="n">age</span> <span class="o">&gt;=</span> <span class="mi">25</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"You're an adult."</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Pay the bills!😆"</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">age</span> <span class="o">&gt;</span> <span class="mi">6</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// only print out this statement if the person age is greater than or equal to 18</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Go to class! 🏫"</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="n">age</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// only print this if the person age is greater than 5 but less than 18.</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Here's some allowance!🤑"</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+    <span class="c1">// if the other two condition is false, then execute this</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"You're a baby! Here are some candies 🍫"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>You can read more about if statement on <a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/if.html">Oracle’s website</a>.</p>
+
+<h2 id="switch">Switch</h2>
+
+<p>A switch case is similar to an if else statement. However, instead of greater than or less than, it only compare if the value is the exact value. For example, given this if statement,</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">year</span> <span class="o">=</span> <span class="mi">100</span><span class="o">;</span>
+
+<span class="k">if</span><span class="o">(</span><span class="n">year</span> <span class="o">==</span> <span class="mi">100</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">//only do this if year == 100</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"century"</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">year</span> <span class="o">==</span> <span class="mi">10</span><span class="o">){</span>
+    <span class="c1">//only do this if year == 10</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"decade"</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+    <span class="c1">// if it doesn't match any of the other case</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Nothing special"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>We can convert it to a switch statement.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">year</span> <span class="o">=</span> <span class="mi">100</span><span class="o">;</span>
+
+ <span class="k">switch</span> <span class="o">(</span><span class="n">year</span><span class="o">)</span> <span class="o">{</span>
+     <span class="k">case</span> <span class="mi">100</span><span class="o">:</span>
+         <span class="c1">//only do this if year == 100</span>
+         <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"century"</span><span class="o">);</span>
+         <span class="c1">//have to break else it will go down to the other cases</span>
+         <span class="k">break</span><span class="o">;</span>
+     <span class="k">case</span> <span class="mi">10</span><span class="o">:</span>
+         <span class="c1">//only do this if year == 10</span>
+         <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"decade"</span><span class="o">);</span>
+         <span class="c1">//have to break else it will go down to the other cases</span>
+         <span class="k">break</span><span class="o">;</span>
+     <span class="k">default</span><span class="o">:</span>
+         <span class="c1">// if it doesn't match any of the other case</span>
+         <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Nothing special"</span><span class="o">);</span>
+         <span class="c1">//doesn't need to break because this is the last statement</span>
+ <span class="o">}</span>
+</code></pre></div></div>
+
+
+              </div>
+          </div>
+
+          <!-- Sidebar -->
+  <div id="sidebar">
+    <div class="inner">
+      <!-- Menu -->
+        <nav id="menu">
+          <header class="major">
+            <h2>Menu</h2>
+          </header>
+          <ul>
+            <li><a href="index.html">Getting started</a></li>
+            <li><a href="0-comment.html">0. Comments</a></li>
+            <li><a href="01-datatype.html">1. Data Types</a></li>
+            <li><a href="02-variable.html">2. Variable</a></li>
+            <li><a href="03-math-operations.html">3. Math Operations</a></li>
+            <li><a href="04-class-method.html">4. Class & Method</a></li>
+            <li><a href="0-string.html">5. String</a></li>
+            <li><a href="0-array.html">6. Array</a></li>
+            <li><a href="0-while-loop.html">7. While Loop</a></li>
+            <li><a href="0-for-loop.html">8. For Loop</a></li>
+            <li><a href="0-if-switch.html">9. If & Switch</a></li>
+          </ul>
+        </nav>
+
+      <!-- Footer -->
+        <footer id="footer">
+          <p class="copyright">&copy; Java Basics. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>. Jekyll integration: <a href="https://andrewbanchi.ch">Andrew Banchich</a>.</p>
+        </footer>
+
+    </div>
+  </div>
+
+
+      </div>
+
+      <!-- Scripts -->
+  <script src="http://localhost:9000/assets/js/jquery.min.js"></script>
+  <script src="http://localhost:9000/assets/js/skel.min.js"></script>
+  <script src="http://localhost:9000/assets/js/util.js"></script>
+  <!--[if lte IE 8]><script src="http://localhost:9000/assets/js/ie/respond.min.js"></script><![endif]-->
+  <script src="http://localhost:9000/assets/js/main.js"></script>
+
+
+</body>
+
+</html>

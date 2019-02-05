@@ -106,7 +106,7 @@ String color = fruit.substring(9);  // "red"
 ```
 
 #### .substring(int beginIndex, int endIndex)
-`.substring(int beginIndex, int endIndex)` - returns a part of the string starting and ending at the given indexes
+`.substring(int beginIndex, int endIndex)` - returns a part of the string starting and ending at the given indexes. Note it does not include the ending index. For example, if you want the first two characters, you need to say `"apple".substring(0, 2)`.
 
 ```
 String fruit = "apple is red";
@@ -182,42 +182,42 @@ num == num2; //returns false because they have different locations
 num.equals(num2); // return true because they have the same value
 ```
 
-##TODO
-
 ## Empty vs Null
 
-```
+Null means the object doesn't exist. Empty means the object exists, but there is nothing in it. For example, you have a glass of water. If the glass is empty, it means there is no water in it. If we say the glass of water is null, it means the glass itself doesn't exist, therefore you can't anything with it. If you try to throw the glass away, it will have a `NullPointerException` which means you tried to do something to an object that doesn't exist. Here is a null string. We denote doesn't exist with `null`.
+
+```java
 String name = null;
-System.out.println("My name is " + name); // "My name is null"
+```
+
+If we try to get the length of the string, it will give us an error because the string doesn't exist.
+
+```java
+String name = null;
 name.length(); // ERROR!!!!!
-
-
-String name2 = "";
-System.out.println("My name is " + name2); // "My name is "
-name2.length(); // 0
 ```
 
-## Checking if there is a value
+However, if we have an empty string, then we can operate on it. An empty string is a string with no character.
 
-```
-public static boolean hasValue(String value) {
-    if (value != null && value.trim().length() > 0) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-System.out.println(hasValue(null)); //false
-System.out.println(hasValue("")); //false
-System.out.println(hasValue("   ")); //false
-System.out.println(hasValue("a")); //true
+```java
+String name = ""; //empty string
+name.length(); // length is 0
 ```
 
 ## Strings are immutable
 
-- Once created, they cannot be changed
-- Methods that change a string return a new string (unless nothing was changed)
+Once a String is created, it cannot be changed. This is called immutable. Any operation that can change a string will return a new string. For example, the method `.length()` returns the size of the string, therefore it does not change the string. However, `.toLowerCase()` means you are changing the string, so it will return a new string.
+
+```
+String fruit = "Apple";
+String newFruit = fruit.toLowerCase();
+
+// because string is immutable, fruit is not changed
+System.out.println(fruit); // Apple
+
+// to lower case return a new string which is the updated string
+System.out.println(newFruit); // apple
+```
 
 ## String operations
 
@@ -233,19 +233,18 @@ System.out.println(hasValue("a")); //true
 - `replace()`, `replaceAll()`, `replaceFirst()`
 - `split()`, `trim()`, `join()`
 
-Read [String API](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html) for more methods
+Read [String API](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html) to learn what methods are available.
 
 ## String Formatting
 
-When we display money, we often want it to 
+When we display money, we often want it to display two decimal points. However, because of the way we store decimal, that is not the case. For example, `10.00 - 9.33` doesn't return the exact number you want.
 
 ```
 double total = 10.00 - 9.33;
 System.out.println(total); //0.6699999999999999
 ```
 
--
-## String Formatting
+That is quite ugly. We can't show that to the user. We want to format the number into two decimal place. Here's an example:
 
 ```
 double total = 10.00 - 9.33;
@@ -254,47 +253,41 @@ String formattedTotal = String.format("Total is %,15.2f", total);
 System.out.println(formattedTotal); //Total is            0.67
 ```
 
--
-## String Formatting
+Notice we used this obscured looking text inside the string `%,15.2f`. That stands for the following:
+
 ```
 "%[argument_index$][flags][min width][.precision]conversion"
 ```
+
 The only field that is required is conversion
 
 - `argument_index` - an integer indicating the position of the argument. The first argument is referenced by "1$", the second by "2$", etc.
 - `flags` - modifies output like left justify, 0 padded
 - `width` - the minimum number of characters
-- `conversion` - indicates how the argument should be formatted
+- `conversion` - what type of argument it is. For example. you can use `s` for a string or `d` for an integer.
 
-[How to format String](https://docs.oracle.com/javase/8/docs/api/java/util/Formatter.html#syntax)
--
-## String Formatting
-```
-"%[argument_index$][flags][min width][.precision]conversion"
-```
+Here are the different type of conversions:
+
 | Specifier |	Applies to | Output|
 | --------- | -------- | ----- |
 | %b | Any type | `true` if non-null, `false` if null |
 | %c | character | character |
 | %s | any type | String value |
-
--
-## String Formatting
-```
-"%[argument number] [flags][width].[precision][type]"
-```
-| Specifier |	Applies to | Output|
-| --------- | -------- | ----- |
 | %d | integer (incl. byte, short, int, long, bigint) | Decimal Integer |
 | %e | floating point | decimal number in scientific notation |
 | %f | floating point | decimal number |
 
-`String format = "Total is %,15.2f"`
+For example, if we want to format a number to have a minimum width of 5, our formatter looks like this:
 
-Pads with space, group with comma, with minimum with of 15 and precision of 2. Conversion type is float.
+```
+String.format("%5d", 11);
+```
 
--
-## Ways to format
+This says we are formatting a number with a minimum with of 5. If the number is less than 5 then pad it with spaces.
+
+
+### Ways to format
+Here are the different ways to format a number.
 
   - Formatter()
   - String.format()
@@ -302,66 +295,17 @@ Pads with space, group with comma, with minimum with of 15 and precision of 2. C
   - System.out.format()
   - System.out.printf
 
--
--
+More details on String formatting: [How to format String](https://docs.oracle.com/javase/8/docs/api/java/util/Formatter.html#syntax)
+
 ## Codepoint
-Once upon a time, there was ASCII. It assigns codes between 0 and 127 to all English letters, the decimal digits, and many symbols.
-
--
-## Codepoint
-But what about Russian, Japanese, and Chinese characters?
-
--
-## Codepoint
-Unicode to the rescue!
-
-It assigns each character in all of the writing systems ever devised a unique 16-bit code between 0 and 65535.
-
-When you see this it will usually be in hexidecimal from 0x0000 to 0xFFFF but Java supports encoding up to 0x10FFFF
-
--
-## Codepoint
-Unicode in Java
+Once upon a time, there was ASCII. It assigns codes between 0 and 127 to all English letters, the decimal digits, and many symbols. Unfortunately, that doesn't cover all the character in the world so they invited unicode. It assigns each character in all of the writing systems ever devised a unique 16-bit code between 0 and 65535. When you see this it will usually be in hexidecimal from 0x0000 to 0xFFFF but Java supports encoding up to 0x10FFFF
 
 ```
 String symbol = "\ud835\udd46"; // 𝕆
 symbol.length(); // 2
 symbol.codePointCount(0, symbol.length()); // 1
 ```
+
 [List of Unicode character](https://en.wikipedia.org/wiki/List_of_Unicode_characters)
 
--
--
-## Building Strings
-
-Using the StringBuilder class allows you to build a string from many small pieces.
-
-```
-StringBuilder builder = new StringBuilder("ap");
-
-builder.append('p'); // appends a single character
-builder.append("le"); // appends a string
-
-String completedString = builder.toString(); // "apple"
-```
-[StringBuilder API](https://docs.oracle.com/javase/7/docs/api/java/lang/StringBuilder.html)
-
--
-## Building Strings
-
-- Use `+` to concatenate a small set of string.
-- Use StringBuilder for large or unknown number of string
-  - Ex: for loop, or reading a file
-
--
-## Building Strings
-
-### DEMO!!!
-Remove vowel from words
-
--
-## Lab
-
-[Leon's Loopy Lab](https://git.zipcode.rocks/ZipCodeWilmington/CR-MicroLabs-Loops-NumbersTrianglesTables)
--
 <img src="https://i.pinimg.com/736x/2c/ac/ae/2cacae63626e91d6887608bf51217907.jpg">
