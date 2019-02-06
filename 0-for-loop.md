@@ -242,3 +242,7 @@ public int factorial(int number) {
   }
 }
 ```
+
+## Resources
+1. [Programiz's tutorial](https://www.programiz.com/java-programming/for-loop)
+2. [Oracle's tutorial](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/for.html)

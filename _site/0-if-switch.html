@@ -184,12 +184,12 @@
      <span class="k">case</span> <span class="mi">100</span><span class="o">:</span>
          <span class="c1">//only do this if year == 100</span>
          <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"century"</span><span class="o">);</span>
-         <span class="c1">//have to break else it will go down to the other cases</span>
+         <span class="c1">//have to break else it will go down to the other cases until it finds a break statement</span>
          <span class="k">break</span><span class="o">;</span>
      <span class="k">case</span> <span class="mi">10</span><span class="o">:</span>
          <span class="c1">//only do this if year == 10</span>
          <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"decade"</span><span class="o">);</span>
-         <span class="c1">//have to break else it will go down to the other cases</span>
+         <span class="c1">//have to break else it will go down to the other cases until it finds a break statement</span>
          <span class="k">break</span><span class="o">;</span>
      <span class="k">default</span><span class="o">:</span>
          <span class="c1">// if it doesn't match any of the other case</span>
@@ -197,6 +197,8 @@
          <span class="c1">//doesn't need to break because this is the last statement</span>
  <span class="o">}</span>
 </code></pre></div></div>
+
+<p>Note you don’t have to have a default statement.</p>
 
 
               </div>

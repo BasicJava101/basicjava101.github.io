@@ -159,12 +159,12 @@ int year = 100;
      case 100:
          //only do this if year == 100
          System.out.println("century");
-         //have to break else it will go down to the other cases
+         //have to break else it will go down to the other cases until it finds a break statement
          break;
      case 10:
          //only do this if year == 10
          System.out.println("decade");
-         //have to break else it will go down to the other cases
+         //have to break else it will go down to the other cases until it finds a break statement
          break;
      default:
          // if it doesn't match any of the other case
@@ -172,3 +172,5 @@ int year = 100;
          //doesn't need to break because this is the last statement
  }
  ```
+
+Note you don't have to have a default statement.
