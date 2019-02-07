@@ -104,6 +104,48 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
+<p>If at some point you want to break out of the loop, you can use the keyword <code class="highlighter-rouge">break</code>. For example, instead of a condition, we use true so the loop will execute forever. But we don’t want to execute the code forever, we need to stop it after a certain time. In this code below we will print <code class="highlighter-rouge">hello</code> and increment the count. But after count reaches 3, we want to stop. So here’s the ugly code for it.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="k">while</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"hello"</span><span class="o">);</span>
+  <span class="n">count</span><span class="o">++;</span>
+
+  <span class="k">if</span> <span class="o">(</span><span class="n">count</span> <span class="o">==</span> <span class="mi">3</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">break</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<p>Instead of breaking, you can also have a variable to store whether or not you should print <code class="highlighter-rouge">hello</code>. Then as soon as count is 3 which is when we want to stop printing, we change the variable to false.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="kt">boolean</span> <span class="n">print</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+
+<span class="k">while</span><span class="o">(</span><span class="n">print</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"hello"</span><span class="o">);</span>
+  <span class="n">count</span><span class="o">++;</span>
+
+  <span class="k">if</span> <span class="o">(</span><span class="n">count</span> <span class="o">==</span> <span class="mi">3</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">print</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<p>This is especially helpful when you write game. For example:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Game</span> <span class="n">game</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Game</span><span class="o">();</span>
+
+<span class="c1">// the ! means not so the statement read while the game is not over, execute this code</span>
+<span class="k">while</span><span class="o">(!</span><span class="n">game</span><span class="o">.</span><span class="na">isOver</span><span class="o">())</span> <span class="o">{</span>
+  <span class="c1">//play game</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
 
               </div>
           </div>

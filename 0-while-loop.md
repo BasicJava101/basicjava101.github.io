@@ -69,3 +69,48 @@ while (x <= 5) {
 
 }
 ```
+
+If at some point you want to break out of the loop, you can use the keyword `break`. For example, instead of a condition, we use true so the loop will execute forever. But we don't want to execute the code forever, we need to stop it after a certain time. In this code below we will print `hello` and increment the count. But after count reaches 3, we want to stop. So here's the ugly code for it.
+
+```java
+
+int count = 0;
+while(true) {
+  System.out.println("hello");
+  count++;
+
+  if (count == 3) {
+    break;
+  }
+}
+
+```
+
+Instead of breaking, you can also have a variable to store whether or not you should print `hello`. Then as soon as count is 3 which is when we want to stop printing, we change the variable to false.
+
+```java
+
+int count = 0;
+boolean print = true;
+
+while(print) {
+  System.out.println("hello");
+  count++;
+
+  if (count == 3) {
+    print = false;
+  }
+}
+
+```
+
+This is especially helpful when you write game. For example:
+
+```java
+Game game = new Game();
+
+// the ! means not so the statement read while the game is not over, execute this code
+while(!game.isOver()) {
+  //play game
+}
+```
