@@ -2,7 +2,7 @@ This is a simple static site built with [Jekyll](https://jekyllrb.com/). The goa
 
 ## Contributing
 
-1. For the project
+1. Fork the project
 2. Clone the project `git clone https://github.com/BasicJava101/basicjava101.github.io.git`
 3. Make your edit
 4. Create a pull request
