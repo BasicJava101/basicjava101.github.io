@@ -126,7 +126,11 @@ int[] copiedLuckyNumbers = Arrays.copyOf(numbers, numbers.length);
 If you need to add another number, you can change the length
 
 ```java
+//copy the original array
 int[] copiedLuckyNumbers = Arrays.copyOf(numbers, numbers.length + 1);
+
+//add in the new value
+copiedLuckyNumbers[numbers.length] = 19;
 ```
 
 ## Sort
