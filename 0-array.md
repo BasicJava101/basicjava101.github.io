@@ -153,6 +153,7 @@ System.out.println(Arrays.toString(numbers));
 
 
 ## Resources
-https://docs.oracle.com/javase/7/docs/api/java/util/Arrays.html
-https://docs.oracle.com/javase/tutorial/java/nutsandbolts/arrays.html
-http://yfain.github.io/Java4Kids/#_creating_your_first_project
+1. [https://docs.oracle.com/javase/7/docs/api/java/util/Arrays.html](https://docs.oracle.com/javase/7/docs/api/java/util/Arrays.html)
+2. [https://docs.oracle.com/javase/tutorial/java/nutsandbolts/arrays.html](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/arrays.html)
+3. [creating_your_first_project](http://yfain.github.io/Java4Kids/)
+4. [Scaler Topcis - Java Array](https://www.scaler.com/topics/java/array-in-java/)
